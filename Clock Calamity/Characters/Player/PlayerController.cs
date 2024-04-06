@@ -1,21 +1,13 @@
 using Godot;
-using CC.Level;
 
 namespace CC.Characters
 {
     public partial class PlayerController : Node2D
     {
-        private LevelController map;
-
         [Signal] public delegate void TakeCoverEventHandler();
         [Signal] public delegate void PeakLeftEventHandler();
         [Signal] public delegate void PeakRightEventHandler();
     
-        public override void _Ready()
-        {
-            map = GetParent<LevelController>();
-        }
-
         public override void _Process(double delta)
         {
             AimAtMouse();
