@@ -16,9 +16,9 @@ namespace CC.Level
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
             player = GetNode<PlayerController>("Player");
 
-            player.TakeCover += () => OnTakeCover();
-            player.PeakLeft += () => OnPeakLeft();
-            player.PeakRight += () => OnPeakRight();
+            player.TakeCover += OnTakeCover;
+            player.PeakLeft += OnPeakLeft;
+            player.PeakRight += OnPeakRight;
 
             MovePlayer(CurrentHide().HidePosition);
         }
@@ -42,7 +42,7 @@ namespace CC.Level
         {
             MovePlayer(CurrentHide().LeftPosition);
         }
-        
+
         private void OnPeakRight()
         {
             MovePlayer(CurrentHide().RightPosition);
