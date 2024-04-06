@@ -37,10 +37,12 @@ namespace CC.Level
         {
             MovePlayer(CurrentHide().HidePosition);
         }
+
         private void OnPeakLeft()
         {
             MovePlayer(CurrentHide().LeftPosition);
         }
+        
         private void OnPeakRight()
         {
             MovePlayer(CurrentHide().RightPosition);
