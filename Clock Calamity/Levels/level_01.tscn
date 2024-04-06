@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=7 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="1_k7pe6"]
-[ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Characters/player.tscn" id="2_5n28b"]
+[ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_ylmgo"]
+[ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Characters/Player/player.tscn" id="2_5n28b"]
+[ext_resource type="Script" path="res://Levels/Hide.cs" id="4_6wmmg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("1_k7pe6")
@@ -536,6 +538,7 @@ tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_wutwn")
 
 [node name="Level01" type="Node2D"]
+script = ExtResource("1_ylmgo")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_flpu6")
@@ -552,4 +555,20 @@ layer_4/name = "Roofs"
 layer_4/tile_data = PackedInt32Array()
 
 [node name="Player" parent="." instance=ExtResource("2_5n28b")]
-position = Vector2(281, 542)
+
+[node name="PlayerHides" type="Node" parent="."]
+
+[node name="HideTree" type="Node" parent="PlayerHides" node_paths=PackedStringArray("hidePosition", "leftPosition", "rightPosition")]
+script = ExtResource("4_6wmmg")
+hidePosition = NodePath("HideMarker")
+leftPosition = NodePath("LeftMarker")
+rightPosition = NodePath("RightMarker")
+
+[node name="HideMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+position = Vector2(608, 728)
+
+[node name="LeftMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+position = Vector2(554, 728)
+
+[node name="RightMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+position = Vector2(662, 728)
