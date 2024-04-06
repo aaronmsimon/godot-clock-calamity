@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ch6hdy74mxibn"]
+[gd_scene load_steps=4 format=3 uid="uid://ch6hdy74mxibn"]
 
 [ext_resource type="Texture2D" uid="uid://b0sv0rnrmn1m1" path="res://Sprites/Projectiles/spaceMissiles_033.png" id="1_8erog"]
 [ext_resource type="Script" path="res://Projectiles/Bullet.cs" id="1_vkbff"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rgd4i"]
+size = Vector2(23, 10)
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource("1_vkbff")
@@ -13,3 +16,11 @@ texture = ExtResource("1_8erog")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-0.5, 2.38419e-07)
 scale = Vector2(1.15, 0.5)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_rgd4i")
+debug_color = Color(1, 0, 0, 0.196078)

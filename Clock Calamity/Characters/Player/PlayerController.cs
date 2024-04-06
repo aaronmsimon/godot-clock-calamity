@@ -6,6 +6,7 @@ namespace CC.Characters
     {
         [Export] private PackedScene projectile;
         [Export] private float projectileSpeed = 500f;
+        [Export] private float projectileDamage = 1;
 
         [Signal] public delegate void TakeCoverEventHandler();
         [Signal] public delegate void PeakLeftEventHandler();
@@ -64,6 +65,7 @@ namespace CC.Characters
         {
             Node2D projectileInstance = (Node2D)projectile.Instantiate();
             projectileInstance.Set("speed", projectileSpeed);
+            projectileInstance.Set("damage", projectileDamage);
             projectileInstance.GlobalPosition = muzzle.GlobalPosition;
             projectileInstance.Rotation = anchor.Rotation;
             Node parent = GetParent();
