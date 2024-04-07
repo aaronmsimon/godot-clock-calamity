@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clock Calamity"
-run/main_scene="res://Levels/level_01.tscn"
+run/main_scene="res://Levels/Level01/level_01.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
