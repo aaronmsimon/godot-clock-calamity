@@ -31,4 +31,5 @@ autoplay = "gun"
 position = Vector2(24, 9)
 
 [node name="CrosshairsSprite" type="Sprite2D" parent="."]
+z_index = 99
 texture = ExtResource("3_mpjoq")

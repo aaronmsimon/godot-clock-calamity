@@ -1625,6 +1625,8 @@ layer_3/tile_data = PackedInt32Array(65543, 1048576, 5, 7, 655360, 6, 6, 917504,
 layer_4/name = "Roofs"
 layer_4/tile_data = PackedInt32Array()
 
+[node name="Player" parent="." instance=ExtResource("2_5n28b")]
+
 [node name="PlayerHides" type="Node" parent="."]
 
 [node name="HideTree" type="Node" parent="PlayerHides" node_paths=PackedStringArray("hidePosition", "leftPosition", "rightPosition")]
@@ -1654,5 +1656,3 @@ shape = SubResource("RectangleShape2D_celxt")
 
 [node name="Enemies" type="Node" parent="."]
 unique_name_in_owner = true
-
-[node name="Player" parent="." instance=ExtResource("2_5n28b")]
