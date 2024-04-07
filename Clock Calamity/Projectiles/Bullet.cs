@@ -18,6 +18,8 @@ namespace CC.Shooting
 
             visible.ScreenExited += QueueFree;
             collider.AreaEntered += OnAreaEntered;
+
+            collider.BodyEntered += OnBodyEntered;
         }
 
         public override void _Process(double delta)
@@ -30,6 +32,11 @@ namespace CC.Shooting
         {
             Enemy enemy = (Enemy)area.GetParent();
             enemy.TakeDamage(damage);
+            QueueFree();
+        }
+
+        private void OnBodyEntered(Node2D body)
+        {
             QueueFree();
         }
     }
