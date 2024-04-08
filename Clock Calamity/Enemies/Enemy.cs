@@ -1,6 +1,6 @@
-using System.Data.Common;
 using Godot;
 using Godot.Collections;
+using System.Threading.Tasks;
 
 namespace CC.Characters
 {
@@ -10,8 +10,11 @@ namespace CC.Characters
         private int health { get; set; }
         private TileMap tileMap { get; set;}
         private Array<Vector2I> paths { get; set; }
+        private int shots { get; set; }
+        private float timeBetweenShots { get; set; }
 
-        private Area2D collider;
+        private PlayerController player;
+        private Timer timer = new Timer();
 
         private AStarGrid2D astarGrid;
         private Vector2 windowSize;
@@ -21,6 +24,8 @@ namespace CC.Characters
         private int pathIndex = 0;
         private Array<Vector2I> currentPath;
         private int cellIndex = 0;
+        private float rotationOffset = 90f;
+        private bool firing;
 
         [Signal] public delegate void DamagedEventHandler();
         [Signal] public delegate void DiedEventHandler();
@@ -29,7 +34,8 @@ namespace CC.Characters
 
         public override void _Ready()
         {
-            collider = GetNode<Area2D>("Area2D");
+            player = GetNode<PlayerController>("../../Player");
+            AddChild(timer);
 
             windowSize = GetViewportRect().Size;
 
@@ -50,7 +56,6 @@ namespace CC.Characters
                     {
                         astarGrid.SetPointSolid(tilePos);
                     }
-                    GD.Print(x + "," + y + " solid: " + astarGrid.IsPointSolid(tilePos));
                 }
             }
 
@@ -66,7 +71,11 @@ namespace CC.Characters
 
             float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, speed * (float)delta);
             float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, speed * (float)delta);
-            GlobalPosition = new Vector2(targetX, targetY);
+            if (!firing)
+            {
+                Rotate(GetAngleTo(targetPos));
+                GlobalPosition = new Vector2(targetX, targetY);
+            }
 
             if (GlobalPosition == targetPos)
             {
@@ -86,14 +95,28 @@ namespace CC.Characters
             pathIndex++;
         }
 
-        private void NextCell()
+        private async void NextCell()
         {
             cellIndex++;
             if (cellIndex >= currentPath.Count - 1)
             {
                 cellIndex = 0;
+                firing = true;
+                Rotate(GetAngleTo(player.GlobalPosition));
+                for (int i = 0; i < shots; i++)
+                {
+                    await Fire();
+                }
+                firing = false;
                 SetNextPath();
             }
+        }
+
+        private async Task Fire()
+        {
+            // GD.Print(this.Name + " says bang");
+            timer.Start(timeBetweenShots);
+            await ToSignal(timer, Timer.SignalName.Timeout);
         }
 
         public void TakeDamage(int damage)

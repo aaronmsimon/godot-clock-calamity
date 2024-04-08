@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_d2054")
-_cells = Array[Vector2i]([Vector2i(3, 0), Vector2i(6, 2)])
+_cells = Array[Vector2i]([Vector2i(3, 0), Vector2i(6, 2), Vector2i(6, 7), Vector2i(6, 12)])
+shots = 3
+timeBetweenShots = 0.5
