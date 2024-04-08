@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Characters/Player/player.tscn" id="3_dqqc6"]
 [ext_resource type="Script" path="res://Levels/Hide.cs" id="4_e7bxr"]
 [ext_resource type="Script" path="res://Enemies/EnemySpawner.cs" id="5_utnij"]
-[ext_resource type="PackedScene" uid="uid://cc6lgvxp6igjq" path="res://Enemies/solider_1.tscn" id="6_fe6at"]
+[ext_resource type="PackedScene" uid="uid://cc6lgvxp6igjq" path="res://Enemies/soldier_1.tscn" id="6_fe6at"]
 [ext_resource type="Script" path="res://Enemies/SpawnPoint.cs" id="7_fnoxf"]
 [ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathsLeft.tres" id="8_xpbkp"]
 [ext_resource type="Resource" uid="uid://dmw62mx4cwd0f" path="res://Levels/Level01/PathsRight.tres" id="9_rqknn"]

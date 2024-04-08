@@ -17,7 +17,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upl5o"]
 size = Vector2(52, 42)
 
-[node name="Solider1" type="Node2D"]
+[node name="Soldier1" type="Node2D"]
 script = ExtResource("1_em0g5")
 
 [node name="Anchor" type="Node2D" parent="."]
