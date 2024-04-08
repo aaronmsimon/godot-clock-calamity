@@ -31,7 +31,7 @@ namespace CC.Characters
         private Array<Vector2I> currentPath;
         private int cellIndex = 0;
         private float rotationOffset = 90f;
-        private bool firing;
+        private bool firing = false;
 
         [Signal] public delegate void DamagedEventHandler();
         [Signal] public delegate void DiedEventHandler();
@@ -110,9 +110,9 @@ namespace CC.Characters
             {
                 cellIndex = 0;
                 firing = true;
-                Rotate(GetAngleTo(player.GlobalPosition));
                 for (int i = 0; i < shots; i++)
                 {
+                    Rotate(GetAngleTo(player.GlobalPosition));
                     await Fire();
                 }
                 firing = false;
