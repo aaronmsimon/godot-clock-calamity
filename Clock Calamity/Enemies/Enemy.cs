@@ -6,6 +6,10 @@ namespace CC.Characters
 {
     public partial class Enemy : Node2D
     {
+        [Export] private PackedScene projectile;
+        [Export] private float projectileSpeed = 500f;
+        [Export] private float projectileDamage = 1;
+
         private float speed { get; set;}
         private int health { get; set; }
         private TileMap tileMap { get; set;}
@@ -14,6 +18,8 @@ namespace CC.Characters
         private float timeBetweenShots { get; set; }
 
         private PlayerController player;
+        private Node2D anchor;
+        private Marker2D muzzle;
         private Timer timer = new Timer();
 
         private AStarGrid2D astarGrid;
@@ -35,6 +41,8 @@ namespace CC.Characters
         public override void _Ready()
         {
             player = GetNode<PlayerController>("../../Player");
+            anchor = GetNode<Node2D>("Anchor");
+            muzzle = GetNode<Marker2D>("Anchor/MuzzleMarker");
             AddChild(timer);
 
             windowSize = GetViewportRect().Size;
@@ -114,7 +122,14 @@ namespace CC.Characters
 
         private async Task Fire()
         {
-            // GD.Print(this.Name + " says bang");
+            Node2D projectileInstance = (Node2D)projectile.Instantiate();
+            projectileInstance.Set("speed", projectileSpeed);
+            projectileInstance.Set("damage", projectileDamage);
+            projectileInstance.GlobalPosition = muzzle.GlobalPosition;
+            projectileInstance.Rotation = Rotation;
+            Node parent = GetParent();
+            parent.AddChild(projectileInstance);
+
             timer.Start(timeBetweenShots);
             await ToSignal(timer, Timer.SignalName.Timeout);
         }

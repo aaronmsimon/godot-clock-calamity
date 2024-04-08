@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc6lgvxp6igjq"]
+[gd_scene load_steps=6 format=3 uid="uid://cc6lgvxp6igjq"]
 
 [ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_em0g5"]
 [ext_resource type="Texture2D" uid="uid://g1ta3ttfcpwg" path="res://Sprites/Characters/Soldier 1/soldier1_gun.png" id="1_n2wj6"]
+[ext_resource type="PackedScene" uid="uid://d2n6ci05ml7p7" path="res://Projectiles/enemy_bullet.tscn" id="2_tkj5r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qq2yn"]
 animations = [{
@@ -19,6 +20,8 @@ size = Vector2(52, 42)
 
 [node name="Soldier1" type="Node2D"]
 script = ExtResource("1_em0g5")
+projectile = ExtResource("2_tkj5r")
+projectileSpeed = 250.0
 
 [node name="Anchor" type="Node2D" parent="."]
 
@@ -31,6 +34,7 @@ autoplay = "gun"
 position = Vector2(25, 9)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
