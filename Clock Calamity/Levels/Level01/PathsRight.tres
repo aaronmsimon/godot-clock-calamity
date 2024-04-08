@@ -5,5 +5,3 @@
 [resource]
 script = ExtResource("1_cnovc")
 _cells = Array[Vector2i]([Vector2i(18, 0), Vector2i(19, 3), Vector2i(15, 2), Vector2i(18, 7), Vector2i(17, 11)])
-shots = 5
-timeBetweenShots = 1.0
