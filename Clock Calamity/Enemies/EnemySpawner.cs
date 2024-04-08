@@ -5,6 +5,7 @@ public partial class EnemySpawner : Node
 {
     [Export] private PackedScene enemy;
     [Export] private float speed;
+    [Export] private int health;
 
     private Array<Node> spawnPoints;
 
@@ -27,11 +28,15 @@ public partial class EnemySpawner : Node
         // Set Position and Rotation
         enemyInstance.GlobalPosition = spawnPoint.GlobalPosition;
         enemyInstance.Rotation += Mathf.DegToRad(enemyRotation);
+        // Send Tilemap
+        TileMap tileMap = GetNode<TileMap>("%TileMap");
+        enemyInstance.Set("tileMap", tileMap);
         // Add Paths
         Array<Vector2I> paths = spawnPoint.Path.Cells;
         enemyInstance.Set("paths", paths);
         // Set other Public Variables
         enemyInstance.Set("speed", speed);
+        enemyInstance.Set("health", health);
         // Add to Tree
         Node parent = GetNode<Node>("%Enemies");
         parent.AddChild(enemyInstance);

@@ -1,3 +1,4 @@
+using System.Data.Common;
 using Godot;
 using Godot.Collections;
 
@@ -5,9 +6,10 @@ namespace CC.Characters
 {
     public partial class Enemy : Node2D
     {
-        [Export] public float speed { get; private set;} = 100;
-        [Export] public int health { get; private set; } = 3;
-        [Export] private Array<Vector2I> paths { get; set; }
+        private float speed { get; set;}
+        private int health { get; set; }
+        private TileMap tileMap { get; set;}
+        private Array<Vector2I> paths { get; set; }
 
         private Area2D collider;
 
@@ -15,12 +17,15 @@ namespace CC.Characters
         private Vector2 windowSize;
         
         private int tileSize = 64;
+        private int tileOffset = 1;
         private int pathIndex = 0;
         private Array<Vector2I> currentPath;
         private int cellIndex = 0;
 
         [Signal] public delegate void DamagedEventHandler();
         [Signal] public delegate void DiedEventHandler();
+
+        const int TILEMAP_LAYER_BARRIERS = 1;
 
         public override void _Ready()
         {
@@ -29,9 +34,25 @@ namespace CC.Characters
             windowSize = GetViewportRect().Size;
 
             astarGrid = new AStarGrid2D();
-            astarGrid.Region = new Rect2I(-1, -1, (int)windowSize.X / tileSize + 2, (int)windowSize.Y / tileSize + 2);
+            astarGrid.Region = tileMap.GetUsedRect();
             astarGrid.CellSize = new Vector2I(tileSize, tileSize);
+            astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.OnlyIfNoObstacles;
             astarGrid.Update();
+
+            for(int x = 0; x < astarGrid.Region.Size.X; x++)
+            {
+                for(int y = 0; y < astarGrid.Region.Size.Y; y++)
+                {
+                    Vector2I tilePos = new Vector2I(x, y);
+                    TileData tileData = tileMap.GetCellTileData(TILEMAP_LAYER_BARRIERS, tilePos);
+
+                    if (tileData != null)
+                    {
+                        astarGrid.SetPointSolid(tilePos);
+                    }
+                    GD.Print(x + "," + y + " solid: " + astarGrid.IsPointSolid(tilePos));
+                }
+            }
 
             SetNextPath();
         }
@@ -39,18 +60,14 @@ namespace CC.Characters
         public override void _Process(double delta)
         {
             if (currentPath == null) return;
-
+            
             Vector2I targetCell = currentPath[cellIndex + 1];
-            Vector2 targetPos = new Vector2((targetCell.X - 1) * tileSize + tileSize / 2, (targetCell.Y - 1) * tileSize + tileSize / 2);
+            Vector2 targetPos = tileMap.MapToLocal(targetCell) - new Vector2(tileOffset * tileSize, tileOffset * tileSize);
 
             float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, speed * (float)delta);
             float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, speed * (float)delta);
             GlobalPosition = new Vector2(targetX, targetY);
-            Vector2 vecDiff = GlobalPosition - targetPos;
-            float sqrMag = vecDiff.Length() * vecDiff.Length();
-            // GD.Print("cell: " + targetCell + " pos: " + targetPos + " global pos: " + GlobalPosition + " mag: " + sqrMag);
 
-            // if (sqrMag < 0.0001f)
             if (GlobalPosition == targetPos)
             {
                 NextCell();
