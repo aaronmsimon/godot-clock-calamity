@@ -18,7 +18,7 @@ namespace Debug.Shapes2D
 
         public override void _Process(double delta)
         {
-            // QueueRedraw();
+            QueueRedraw();
         }
 
         public override void _Draw()
@@ -39,7 +39,7 @@ namespace Debug.Shapes2D
                     Vector2I tilePos = new Vector2I(x, y);
                     if (astarGrid2DComponent.astarGrid2D.IsPointSolid(tilePos))
                     {
-                        Rect2 cell = new Rect2(astarGrid2DComponent.tileMap.MapToLocal(tilePos) + astarGrid2DComponent.tileOffset, astarGrid2DComponent.tileMap.TileSet.TileSize);
+                        Rect2 cell = new Rect2(astarGrid2DComponent.tileMap.MapToLocal(tilePos) + (astarGrid2DComponent.tileOffset + astarGrid2DComponent.tileOffset / 2) * astarGrid2DComponent.tileMap.TileSet.TileSize, astarGrid2DComponent.tileMap.TileSet.TileSize);
                         DrawRect(cell, barrierColor);
                     }
                 }
