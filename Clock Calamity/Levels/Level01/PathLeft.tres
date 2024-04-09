@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://biq5j1qc5rhak"]
+
+[ext_resource type="Script" path="res://Components/WaypointsResource.cs" id="1_xwaho"]
+
+[resource]
+script = ExtResource("1_xwaho")
+waypoints = Array[Vector2i]([Vector2i(3, 0), Vector2i(6, 2), Vector2i(6, 7), Vector2i(6, 12)])

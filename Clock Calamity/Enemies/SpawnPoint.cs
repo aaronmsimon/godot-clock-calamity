@@ -4,15 +4,14 @@ using Components.Pathfinding;
 
 public partial class SpawnPoint : Marker2D
 {
+    [ExportCategory("Spawn Point")]
     [Export] private AStarGrid2DComponent astarGrid2DComponent;
-    [Export] private AStarPathResource path;
+    [Export] private WaypointsResource pathResource;
+    [Export] private EnemyResource enemyResource;
+
+    [ExportGroup("Behavior")]
     [Export] private int enemiesToSpawn;
     [Export] private float timeBetweenSpawns;
-    [Export] private PackedScene enemy;
-    [Export] private float speed;
-    [Export] private int health;
-    [Export] private int shots;
-    [Export] private float timeBetweenShots;
 
     private int enemyCount = 0;
     private Timer timer = new Timer();
@@ -30,22 +29,13 @@ public partial class SpawnPoint : Marker2D
         // Increment enemies spawned counter
         enemyCount++;
         // Instantiate Enemy
-        Node2D enemyInstance = (Node2D)enemy.Instantiate();
-        // Set Position and Rotation
+        Node2D enemyInstance = (Node2D)enemyResource.enemy.Instantiate();
+        // Set Position
         enemyInstance.GlobalPosition = GlobalPosition;
-        // Send A* Component
+        // Send Resources
         enemyInstance.Set("astarGrid2DComponent", astarGrid2DComponent);
-        // Send Tilemap
-        TileMap tileMap = GetNode<TileMap>("%TileMap");
-        enemyInstance.Set("tileMap", tileMap);
-        // Add Paths
-        Array<Vector2I> paths = path.Cells;
-        enemyInstance.Set("paths", paths);
-        // Set other Public Variables
-        enemyInstance.Set("shots", shots);
-        enemyInstance.Set("timeBetweenShots", timeBetweenShots);
-        enemyInstance.Set("speed", speed);
-        enemyInstance.Set("health", health);
+        enemyInstance.Set("pathResource", pathResource);
+        enemyInstance.Set("enemyResource", enemyResource);
         // Add to Tree
         Node parent = GetNode<Node>("%Enemies");
         parent.AddChild(enemyInstance);

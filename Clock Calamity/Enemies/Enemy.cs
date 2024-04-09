@@ -7,30 +7,30 @@ namespace CC.Characters
 {
     public partial class Enemy : Node2D
     {
-
         [Export] private PackedScene projectile;
         [Export] private float projectileSpeed = 500f;
         [Export] private float projectileDamage = 1;
 
-        private float speed { get; set;}
-        private int health { get; set; }
-        private Array<Vector2I> paths { get; set; }
-        private int shots { get; set; }
-        private float timeBetweenShots { get; set; }
-        private AStarGrid2DComponent astarGrid2DComponent { get; set; }
+        // Resources
+        private AStarGrid2DComponent astarGrid2DComponent;
+        private WaypointsResource pathResource;
+        private EnemyResource enemyResource;
 
+        // Aiming info
         private PlayerController player;
         private Node2D anchor;
         private Marker2D muzzle;
         private Timer timer = new Timer();
+        private bool firing = false;
 
+        // Path tracking
         private int pathIndex = 0;
         private Array<Vector2I> currentPath;
         private int cellIndex = 0;
         private float rotationOffset = 90f;
-        private bool firing = false;
         private Vector2I lastCellOccupied;
 
+        // Signals
         [Signal] public delegate void DamagedEventHandler();
         [Signal] public delegate void DiedEventHandler();
 
@@ -51,8 +51,8 @@ namespace CC.Characters
             Vector2I targetCell = currentPath[cellIndex + 1];
             Vector2 targetPos = astarGrid2DComponent.tileMap.MapToLocal(targetCell) + astarGrid2DComponent.tileOffset * astarGrid2DComponent.tileMap.TileSet.TileSize;
 
-            float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, speed * (float)delta);
-            float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, speed * (float)delta);
+            float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, enemyResource.speed * (float)delta);
+            float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, enemyResource.speed * (float)delta);
             if (!firing)
             {
                 Rotate(GetAngleTo(targetPos));
@@ -75,13 +75,13 @@ namespace CC.Characters
 
         private void SetNextPath()
         {
-            if (pathIndex >= paths.Count - 1)
+            if (pathIndex >= pathResource.waypoints.Count - 1)
             {
                 currentPath = null;
                 return;
             }
 
-            currentPath = astarGrid2DComponent.astarGrid2D.GetIdPath(paths[pathIndex], paths[pathIndex + 1]);
+            currentPath = astarGrid2DComponent.astarGrid2D.GetIdPath(pathResource.waypoints[pathIndex], pathResource.waypoints[pathIndex + 1]);
             pathIndex++;
         }
 
@@ -92,7 +92,7 @@ namespace CC.Characters
             {
                 cellIndex = 0;
                 firing = true;
-                for (int i = 0; i < shots; i++)
+                for (int i = 0; i < enemyResource.shots; i++)
                 {
                     Rotate(GetAngleTo(player.GlobalPosition));
                     await Fire();
@@ -112,16 +112,16 @@ namespace CC.Characters
             Node parent = GetParent();
             parent.AddChild(projectileInstance);
 
-            timer.Start(timeBetweenShots);
+            timer.Start(enemyResource.timeBetweenShots);
             await ToSignal(timer, Timer.SignalName.Timeout);
         }
 
         public void TakeDamage(int damage)
         {
-            health -= damage;
+            enemyResource.health -= damage;
             EmitSignal(SignalName.Damaged);
 
-            if (health <= 0)
+            if (enemyResource.health <= 0)
             {
                 Die();
             }
