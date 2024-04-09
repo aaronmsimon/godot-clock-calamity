@@ -10,7 +10,7 @@ namespace Components.Pathfinding
         [Export] public NPCResource npcResource { private get; set; }
 
         public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
-        public WaypointsResource pathResource { get; set; }
+        public WaypointsResource pathResource { private get; set; }
 
         // Path tracking
         private Array<Vector2I> path;

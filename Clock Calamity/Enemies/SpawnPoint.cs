@@ -1,7 +1,5 @@
 using Godot;
-using Godot.Collections;
 using Components.Pathfinding;
-using CC.Characters;
 
 public partial class SpawnPoint : Marker2D
 {
