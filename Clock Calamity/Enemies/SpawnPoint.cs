@@ -1,6 +1,6 @@
-using Components.Pathfinding;
 using Godot;
 using Godot.Collections;
+using Components.Pathfinding;
 
 public partial class SpawnPoint : Marker2D
 {

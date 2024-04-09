@@ -1,5 +1,5 @@
-using Components.Pathfinding;
 using Godot;
+using Components.Pathfinding;
 
 namespace Debug.Shapes2D
 {
@@ -10,7 +10,16 @@ namespace Debug.Shapes2D
         [ExportGroup("A* Grid2DComponent")]
         [Export] private AStarGrid2DComponent astarGrid2DComponent;
         [Export] private bool drawGrid2DBarriers;
-        [Export] private Color barrierColor;
+        [Export] private Color barrierColor = Colors.DarkRed;
+        
+        // [ExportGroup("A* Pathing")]
+        // // [Export] private pathing component
+        // [Export] private bool drawPathing;
+        // [ExportSubgroup("Line Settings")]
+        // [Export] private float lineWidth;
+        // [Export] private Color lineColor = Colors.DarkGray;
+        // [Export] private Color startColor = Colors.RoyalBlue;
+        // [Export] private Color endColor = Colors.LightYellow;
 
         public override void _Ready()
         {
@@ -45,5 +54,10 @@ namespace Debug.Shapes2D
                 }
             }
         }
+
+        // private void DrawAStarGrid2DPathing()
+        // {
+
+        // }
     }
 }

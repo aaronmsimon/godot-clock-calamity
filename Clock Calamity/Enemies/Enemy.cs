@@ -1,7 +1,7 @@
-using Components.Pathfinding;
 using Godot;
 using Godot.Collections;
 using System.Threading.Tasks;
+using Components.Pathfinding;
 
 namespace CC.Characters
 {
