@@ -1658,6 +1658,7 @@ script = ExtResource("7_fnoxf")
 astarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 pathResource = ExtResource("8_xpbkp")
 npcResource = ExtResource("8_05yx6")
+enemiesToSpawn = 5
 timeBetweenSpawns = 3.0
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints"]
@@ -1673,3 +1674,6 @@ script = ExtResource("10_0l0xq")
 astarGrid2DComponent = NodePath("../AStarGrid2DComponent")
 drawGrid2DBarriers = true
 barrierColor = Color(1, 0, 0, 0.556863)
+waypointsResource = Array[Resource]([ExtResource("8_xpbkp")])
+drawPathing = true
+pathLineWidth = 5.0
