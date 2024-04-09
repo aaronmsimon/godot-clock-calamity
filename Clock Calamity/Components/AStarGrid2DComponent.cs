@@ -18,7 +18,7 @@ namespace Components.Pathfinding
         [ExportGroup("Offset")]
         [Export] public Vector2 tileOffset { get; private set; }
 
-        public AStarGrid2D astarGrid2D { get; private set; }
+        public AStarGrid2D astarGrid2D { get; private set; } = new AStarGrid2D();
 
         public override void _Ready()
         {
@@ -28,12 +28,9 @@ namespace Components.Pathfinding
                 return;
             }
 
-            astarGrid2D = new AStarGrid2D
-            {
-                Region = tileMap.GetUsedRect(),
-                CellSize = new Vector2I(tileMap.TileSet.TileSize.X, tileMap.TileSet.TileSize.Y),
-                DiagonalMode = diagonalMode
-            };
+            astarGrid2D.Region = tileMap.GetUsedRect();
+            astarGrid2D.CellSize = new Vector2I(tileMap.TileSet.TileSize.X, tileMap.TileSet.TileSize.Y);
+            astarGrid2D.DiagonalMode = diagonalMode;
             astarGrid2D.Update();
 
             SetBarriers();

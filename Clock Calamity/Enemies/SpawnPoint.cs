@@ -1,8 +1,10 @@
+using Components.Pathfinding;
 using Godot;
 using Godot.Collections;
 
 public partial class SpawnPoint : Marker2D
 {
+    [Export] private AStarGrid2DComponent astarGrid2DComponent;
     [Export] private AStarPathResource path;
     [Export] private int enemiesToSpawn;
     [Export] private float timeBetweenSpawns;
@@ -31,6 +33,8 @@ public partial class SpawnPoint : Marker2D
         Node2D enemyInstance = (Node2D)enemy.Instantiate();
         // Set Position and Rotation
         enemyInstance.GlobalPosition = GlobalPosition;
+        // Send A* Component
+        enemyInstance.Set("astarGrid2DComponent", astarGrid2DComponent);
         // Send Tilemap
         TileMap tileMap = GetNode<TileMap>("%TileMap");
         enemyInstance.Set("tileMap", tileMap);
