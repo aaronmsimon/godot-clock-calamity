@@ -1,24 +1,27 @@
 using Godot;
 
-public partial class CustomMouseComponent : Node2D
+namespace Components.CustomCursor
 {
-    [ExportCategory("Custom Mouse Cursor")]
-    [Export] private bool useCustomCursor;
-    [Export] private Texture cursorTexture;
-
-    public override void _Ready()
+    public partial class CustomMouseComponent : Node2D
     {
-        // Set node ahead of all others so cursor renders on top of everything else
-        ZIndex = 99;
+        [ExportCategory("Custom Mouse Cursor")]
+        [Export] private bool useCustomCursor;
+        [Export] private Texture cursorTexture;
 
-        if (useCustomCursor)
+        public override void _Ready()
         {
-            if (cursorTexture == null)
+            // Set node ahead of all others so cursor renders on top of everything else
+            ZIndex = 99;
+
+            if (useCustomCursor)
             {
-                GD.PrintErr("Please supply an image if you'd like to use a custom mouse cursor.");
-                return;
+                if (cursorTexture == null)
+                {
+                    GD.PrintErr("Please supply an image if you'd like to use a custom mouse cursor.");
+                    return;
+                }
+                Input.SetCustomMouseCursor(cursorTexture);
             }
-            Input.SetCustomMouseCursor(cursorTexture);
         }
     }
 }
