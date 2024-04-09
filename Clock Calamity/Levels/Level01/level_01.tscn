@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=12 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Enemies/SpawnPoint.cs" id="7_fnoxf"]
 [ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathsLeft.tres" id="8_xpbkp"]
 [ext_resource type="Resource" uid="uid://dmw62mx4cwd0f" path="res://Levels/Level01/PathsRight.tres" id="9_rqknn"]
+[ext_resource type="Script" path="res://Debug/Debug.cs" id="9_y6glj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1647,7 +1648,7 @@ position = Vector2(662, 735)
 position = Vector2(160, -32)
 script = ExtResource("7_fnoxf")
 path = ExtResource("8_xpbkp")
-enemiesToSpawn = 5
+enemiesToSpawn = 1
 timeBetweenSpawns = 3.0
 enemy = ExtResource("6_fe6at")
 speed = 100.0
@@ -1659,7 +1660,6 @@ timeBetweenShots = 0.5
 position = Vector2(1120, -32)
 script = ExtResource("7_fnoxf")
 path = ExtResource("9_rqknn")
-enemiesToSpawn = 3
 timeBetweenSpawns = 10.0
 enemy = ExtResource("6_fe6at")
 speed = 100.0
@@ -1669,3 +1669,6 @@ timeBetweenShots = 0.75
 
 [node name="Enemies" type="Node" parent="."]
 unique_name_in_owner = true
+
+[node name="Debug" type="Node2D" parent="."]
+script = ExtResource("9_y6glj")

@@ -32,6 +32,7 @@ namespace CC.Characters
         private int cellIndex = 0;
         private float rotationOffset = 90f;
         private bool firing = false;
+        private Vector2I lastCellOccupied;
 
         [Signal] public delegate void DamagedEventHandler();
         [Signal] public delegate void DiedEventHandler();
@@ -62,7 +63,7 @@ namespace CC.Characters
 
                     if (tileData != null)
                     {
-                        astarGrid.SetPointSolid(tilePos);
+                        astarGrid.SetPointSolid(tilePos, true);
                     }
                 }
             }
@@ -88,6 +89,15 @@ namespace CC.Characters
             if (GlobalPosition == targetPos)
             {
                 NextCell();
+            }
+
+            Vector2I currentCell = tileMap.LocalToMap(GlobalPosition + new Vector2(tileOffset * tileSize, tileOffset * tileSize));
+            if (lastCellOccupied != currentCell)
+            {
+                astarGrid.SetPointSolid(lastCellOccupied, false);
+                astarGrid.SetPointSolid(currentCell, true);
+// GD.Print("last cell: " + lastCellOccupied + astarGrid.IsPointSolid(lastCellOccupied) + " current: " + currentCell);
+                lastCellOccupied = currentCell;
             }
         }
 
