@@ -11,5 +11,6 @@ projectileSpeed = 500
 projectileDamage = 1
 projectilesPerShot = 1
 ammoPerMag = 10
-ammoMax = 0
 reloadTime = 0.75
+ammoInfinite = true
+ammoMax = 15

@@ -1658,7 +1658,6 @@ script = ExtResource("7_fnoxf")
 astarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 pathResource = ExtResource("8_xpbkp")
 npcResource = ExtResource("8_05yx6")
-enemiesToSpawn = 1
 timeBetweenSpawns = 3.0
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints"]
