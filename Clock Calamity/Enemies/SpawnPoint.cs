@@ -1,13 +1,14 @@
 using Godot;
 using Godot.Collections;
 using Components.Pathfinding;
+using CC.Characters;
 
 public partial class SpawnPoint : Marker2D
 {
     [ExportCategory("Spawn Point")]
     [Export] private AStarGrid2DComponent astarGrid2DComponent;
     [Export] private WaypointsResource pathResource;
-    [Export] private EnemyResource enemyResource;
+    [Export] private NPCResource npcResource;
 
     [ExportGroup("Behavior")]
     [Export] private int enemiesToSpawn;
@@ -29,13 +30,13 @@ public partial class SpawnPoint : Marker2D
         // Increment enemies spawned counter
         enemyCount++;
         // Instantiate Enemy
-        Node2D enemyInstance = (Node2D)enemyResource.enemy.Instantiate();
+        Node2D enemyInstance = (Node2D)npcResource.npc.Instantiate();
         // Set Position
         enemyInstance.GlobalPosition = GlobalPosition;
         // Send Resources
         enemyInstance.Set("astarGrid2DComponent", astarGrid2DComponent);
         enemyInstance.Set("pathResource", pathResource);
-        enemyInstance.Set("enemyResource", enemyResource);
+        enemyInstance.Set("npcResource", npcResource);
         // Add to Tree
         Node parent = GetNode<Node>("%Enemies");
         parent.AddChild(enemyInstance);

@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://ci8d2storteuk"]
 
+[ext_resource type="Script" path="res://Enemies/NPCResource.cs" id="1_0qimp"]
 [ext_resource type="PackedScene" uid="uid://cc6lgvxp6igjq" path="res://Enemies/soldier_1.tscn" id="1_h707e"]
-[ext_resource type="Script" path="res://Enemies/EnemyResource.cs" id="2_56240"]
 
 [resource]
-script = ExtResource("2_56240")
-enemy = ExtResource("1_h707e")
+script = ExtResource("1_0qimp")
+npc = ExtResource("1_h707e")
 health = 3
 speed = 100.0
 shots = 3

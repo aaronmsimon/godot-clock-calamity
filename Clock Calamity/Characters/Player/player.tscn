@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ch6hdy74mxibn" path="res://Projectiles/bullet.tscn" id="2_ilkk0"]
 [ext_resource type="Texture2D" uid="uid://ck8n2215ejinm" path="res://Sprites/UI/crosshair161.png" id="3_mpjoq"]
 [ext_resource type="Texture2D" uid="uid://c4nhfetm4iksw" path="res://Sprites/Characters/Hitman 1/hitman1_reload.png" id="4_cxsxn"]
-[ext_resource type="Script" path="res://Components/CustomMouseComponent.cs" id="5_5dr73"]
+[ext_resource type="Script" path="res://Components/CustomCursor/CustomMouseComponent.cs" id="5_q2ew5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n70sc"]
 atlas = ExtResource("4_cxsxn")
@@ -45,6 +45,6 @@ autoplay = "gun"
 position = Vector2(24, 9)
 
 [node name="CustomMouseComponent" type="Node2D" parent="."]
-script = ExtResource("5_5dr73")
+script = ExtResource("5_q2ew5")
 useCustomCursor = true
 cursorTexture = ExtResource("3_mpjoq")

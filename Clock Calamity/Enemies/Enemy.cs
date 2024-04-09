@@ -12,23 +12,20 @@ namespace CC.Characters
         [Export] private float projectileDamage = 1;
 
         // Resources
-        private AStarGrid2DComponent astarGrid2DComponent;
-        private WaypointsResource pathResource;
-        private EnemyResource enemyResource;
+        public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
+        public WaypointsResource pathResource { private get; set; }
+        public NPCResource npcResource { private get; set; }
+        
+        public PlayerController player { get; private set; }
+
+        // Pathfinding
+        private FollowWaypointsComponent followWaypointsComponent;
 
         // Aiming info
-        private PlayerController player;
         private Node2D anchor;
         private Marker2D muzzle;
         private Timer timer = new Timer();
         private bool firing = false;
-
-        // Path tracking
-        private int pathIndex = 0;
-        private Array<Vector2I> currentPath;
-        private int cellIndex = 0;
-        private float rotationOffset = 90f;
-        private Vector2I lastCellOccupied;
 
         // Signals
         [Signal] public delegate void DamagedEventHandler();
@@ -39,70 +36,20 @@ namespace CC.Characters
             player = GetNode<PlayerController>("../../Player");
             anchor = GetNode<Node2D>("Anchor");
             muzzle = GetNode<Marker2D>("Anchor/MuzzleMarker");
-            AddChild(timer);
 
-            SetNextPath();
+            followWaypointsComponent = GetNode<FollowWaypointsComponent>("FollowWaypointsComponent");
+            followWaypointsComponent.astarGrid2DComponent = astarGrid2DComponent;
+            followWaypointsComponent.pathResource = pathResource;
+            followWaypointsComponent.npcResource = npcResource;
+
+            AddChild(timer);
         }
 
         public override void _Process(double delta)
         {
-            if (currentPath == null) return;
-            
-            Vector2I targetCell = currentPath[cellIndex + 1];
-            Vector2 targetPos = astarGrid2DComponent.tileMap.MapToLocal(targetCell) + astarGrid2DComponent.tileOffset * astarGrid2DComponent.tileMap.TileSet.TileSize;
-
-            float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, enemyResource.speed * (float)delta);
-            float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, enemyResource.speed * (float)delta);
-            if (!firing)
-            {
-                Rotate(GetAngleTo(targetPos));
-                GlobalPosition = new Vector2(targetX, targetY);
-            }
-
-            if (GlobalPosition == targetPos)
-            {
-                NextCell();
-            }
-
-            Vector2I currentCell = astarGrid2DComponent.tileMap.LocalToMap(GlobalPosition - astarGrid2DComponent.tileOffset * astarGrid2DComponent.tileMap.TileSet.TileSize);
-            if (lastCellOccupied != currentCell)
-            {
-                // astarGrid2DComponent.astarGrid2D.SetPointSolid(lastCellOccupied, false);
-                // astarGrid2DComponent.astarGrid2D.SetPointSolid(currentCell, true);
-                lastCellOccupied = currentCell;
-            }
         }
 
-        private void SetNextPath()
-        {
-            if (pathIndex >= pathResource.waypoints.Count - 1)
-            {
-                currentPath = null;
-                return;
-            }
-
-            currentPath = astarGrid2DComponent.astarGrid2D.GetIdPath(pathResource.waypoints[pathIndex], pathResource.waypoints[pathIndex + 1]);
-            pathIndex++;
-        }
-
-        private async void NextCell()
-        {
-            cellIndex++;
-            if (cellIndex >= currentPath.Count - 1)
-            {
-                cellIndex = 0;
-                firing = true;
-                for (int i = 0; i < enemyResource.shots; i++)
-                {
-                    Rotate(GetAngleTo(player.GlobalPosition));
-                    await Fire();
-                }
-                firing = false;
-                SetNextPath();
-            }
-        }
-
-        private async Task Fire()
+        public async Task Fire()
         {
             Node2D projectileInstance = (Node2D)projectile.Instantiate();
             projectileInstance.Set("speed", projectileSpeed);
@@ -112,16 +59,16 @@ namespace CC.Characters
             Node parent = GetParent();
             parent.AddChild(projectileInstance);
 
-            timer.Start(enemyResource.timeBetweenShots);
+            timer.Start(npcResource.timeBetweenShots);
             await ToSignal(timer, Timer.SignalName.Timeout);
         }
 
         public void TakeDamage(int damage)
         {
-            enemyResource.health -= damage;
+            npcResource.health -= damage;
             EmitSignal(SignalName.Damaged);
 
-            if (enemyResource.health <= 0)
+            if (npcResource.health <= 0)
             {
                 Die();
             }

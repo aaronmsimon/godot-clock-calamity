@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc6lgvxp6igjq"]
+[gd_scene load_steps=7 format=3 uid="uid://cc6lgvxp6igjq"]
 
 [ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_em0g5"]
 [ext_resource type="Texture2D" uid="uid://g1ta3ttfcpwg" path="res://Sprites/Characters/Soldier 1/soldier1_gun.png" id="1_n2wj6"]
 [ext_resource type="PackedScene" uid="uid://d2n6ci05ml7p7" path="res://Projectiles/enemy_bullet.tscn" id="2_tkj5r"]
+[ext_resource type="Script" path="res://Components/Pathfinding/FollowWaypointsComponent.cs" id="4_7xlj7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qq2yn"]
 animations = [{
@@ -39,3 +40,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_upl5o")
+
+[node name="FollowWaypointsComponent" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("4_7xlj7")
+actor = NodePath("..")

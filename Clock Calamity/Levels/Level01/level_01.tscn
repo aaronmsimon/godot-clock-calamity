@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
 [ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Characters/Player/player.tscn" id="3_dqqc6"]
 [ext_resource type="Script" path="res://Levels/Hide.cs" id="4_e7bxr"]
+[ext_resource type="Script" path="res://Components/Pathfinding/AStarGrid2DComponent.cs" id="5_movxi"]
 [ext_resource type="Script" path="res://Enemies/SpawnPoint.cs" id="7_fnoxf"]
 [ext_resource type="Resource" uid="uid://ci8d2storteuk" path="res://Levels/Level01/EnemyLeft.tres" id="8_05yx6"]
 [ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathLeft.tres" id="8_xpbkp"]
-[ext_resource type="Script" path="res://Components/AStarGrid2DComponent.cs" id="9_bdrb5"]
 [ext_resource type="Script" path="res://Debug/Debug2D.cs" id="10_0l0xq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
@@ -1644,7 +1644,7 @@ position = Vector2(554, 735)
 position = Vector2(662, 735)
 
 [node name="AStarGrid2DComponent" type="Node2D" parent="." node_paths=PackedStringArray("tileMap")]
-script = ExtResource("9_bdrb5")
+script = ExtResource("5_movxi")
 tileMap = NodePath("../TileMap")
 diagonalMode = 3
 hasBarriers = true
@@ -1658,7 +1658,7 @@ position = Vector2(160, -32)
 script = ExtResource("7_fnoxf")
 astarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 pathResource = ExtResource("8_xpbkp")
-enemyResource = ExtResource("8_05yx6")
+npcResource = ExtResource("8_05yx6")
 enemiesToSpawn = 1
 timeBetweenSpawns = 3.0
 

@@ -1,10 +1,10 @@
 using Godot;
 
-public partial class EnemyResource : Resource
+public partial class NPCResource : Resource
 {
-    [ExportGroup("Enemy")]
-    [Export] public PackedScene enemy { get; private set; }
-    [ExportSubgroup("Enemy Behavior")]
+    [ExportCategory("NPC Resource")]
+    [Export] public PackedScene npc { get; private set; }
+    [ExportGroup("Behavior")]
     [Export] public int health { get; set; }
     [Export] public float speed { get; private set; }
     [Export] public int shots { get; private set; }
