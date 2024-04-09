@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cohjox78n3kkt"]
+[gd_scene load_steps=9 format=3 uid="uid://cohjox78n3kkt"]
 
 [ext_resource type="Script" path="res://Characters/Player/PlayerController.cs" id="1_7ci8c"]
 [ext_resource type="Texture2D" uid="uid://b6a6u4ijfwacd" path="res://Sprites/Characters/Hitman 1/hitman1_gun.png" id="1_v7obb"]
 [ext_resource type="PackedScene" uid="uid://ch6hdy74mxibn" path="res://Projectiles/bullet.tscn" id="2_ilkk0"]
+[ext_resource type="Texture2D" uid="uid://ck8n2215ejinm" path="res://Sprites/UI/crosshair161.png" id="3_mpjoq"]
 [ext_resource type="Texture2D" uid="uid://c4nhfetm4iksw" path="res://Sprites/Characters/Hitman 1/hitman1_reload.png" id="4_cxsxn"]
+[ext_resource type="Script" path="res://Components/CustomMouseComponent.cs" id="5_5dr73"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n70sc"]
 atlas = ExtResource("4_cxsxn")
@@ -41,3 +43,8 @@ autoplay = "gun"
 
 [node name="MuzzleMarker" type="Marker2D" parent="Anchor"]
 position = Vector2(24, 9)
+
+[node name="CustomMouseComponent" type="Node2D" parent="."]
+script = ExtResource("5_5dr73")
+useCustomCursor = true
+cursorTexture = ExtResource("3_mpjoq")
