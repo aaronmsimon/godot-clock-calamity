@@ -17,7 +17,7 @@ namespace Components.Weapons
         [Export] public bool ammoInfinite { get; private set; }
         [Export] public int ammoMax { get; private set; }
 
-        public int ammoMagCurrent { get; set; }
-        public int ammoTotalCurrent { get; set; }
+        public float ammoMagCurrent { get; set; }
+        public float ammoTotalCurrent { get; set; }
     }
 }

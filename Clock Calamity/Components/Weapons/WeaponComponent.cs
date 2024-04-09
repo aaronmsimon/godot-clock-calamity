@@ -27,10 +27,8 @@ namespace Components.Weapons
 
             AmmoChanged += OnAmmoChanged;
 
-            if (!weaponResource.ammoInfinite)
-            {
-                weaponResource.ammoTotalCurrent = weaponResource.ammoMax;
-            }
+            weaponResource.ammoTotalCurrent = weaponResource.ammoInfinite ? Mathf.Inf : weaponResource.ammoMax;
+
             SetMaxMagAmmo();
         }
 
@@ -67,8 +65,8 @@ namespace Components.Weapons
 
         private void SetMaxMagAmmo()
         {
-            int ammoNeeded = weaponResource.ammoPerMag - weaponResource.ammoMagCurrent;
-            int ammoReloaded = weaponResource.ammoInfinite ? ammoNeeded : Mathf.Min(weaponResource.ammoTotalCurrent, ammoNeeded);
+            float ammoNeeded = weaponResource.ammoPerMag - weaponResource.ammoMagCurrent;
+            float ammoReloaded = Mathf.Min(weaponResource.ammoTotalCurrent, ammoNeeded);
             weaponResource.ammoTotalCurrent -= ammoReloaded;
             weaponResource.ammoMagCurrent += ammoReloaded;
             EmitSignal(SignalName.AmmoChanged);
