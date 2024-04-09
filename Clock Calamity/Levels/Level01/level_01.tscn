@@ -1624,7 +1624,6 @@ layer_2/name = "Decoration"
 layer_2/tile_data = PackedInt32Array(131090, 1507328, 7, 589838, 1310720, 7, 655377, 1507328, 8, 524304, 1638400, 5, 655363, 1507328, 7, 262146, 1638400, 1342177285, 393219, 1310720, 805306375, 458761, 1638400, 4, 458764, 1638400, 1342177284, 327692, 1441792, 8, 458757, 1310720, 8)
 
 [node name="Player" parent="." instance=ExtResource("3_dqqc6")]
-ammoMax = 10
 
 [node name="PlayerHides" type="Node" parent="."]
 

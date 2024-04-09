@@ -1,14 +1,11 @@
+using Components.Weapons;
 using Godot;
 
 namespace CC.Characters
 {
     public partial class PlayerController : Node2D
     {
-        [Export] private PackedScene projectile;
-        [Export] private float projectileSpeed = 500f;
-        [Export] private float projectileDamage = 1;
-        [Export] private int ammoMax = 6;
-        [Export] private float reloadTime = 1;
+        [Export] private WeaponComponent weapon;
 
         [Signal] public delegate void TakeCoverEventHandler();
         [Signal] public delegate void PeakLeftEventHandler();
@@ -30,7 +27,7 @@ namespace CC.Characters
             playerSprite = GetNode<AnimatedSprite2D>("Anchor/AnimatedSprite2D");
 
             AmmoChanged += OnAmmoChanged;
-            ammoCurrent = ammoMax;
+            ammoCurrent = weapon.weaponResource.ammoPerMag;
             EmitSignal(SignalName.AmmoChanged);
 
             AddChild(reloadTimer);
@@ -74,9 +71,9 @@ namespace CC.Characters
         {
             if (ammoCurrent > 0 && !isReloading)
             {
-                Node2D projectileInstance = (Node2D)projectile.Instantiate();
-                projectileInstance.Set("speed", projectileSpeed);
-                projectileInstance.Set("damage", projectileDamage);
+                Node2D projectileInstance = (Node2D)weapon.weaponResource.projectile.Instantiate();
+                projectileInstance.Set("speed", weapon.weaponResource.projectileSpeed);
+                projectileInstance.Set("damage", weapon.weaponResource.projectileDamage);
                 projectileInstance.GlobalPosition = muzzle.GlobalPosition;
                 projectileInstance.Rotation = anchor.Rotation;
                 Node parent = GetParent();
@@ -89,12 +86,12 @@ namespace CC.Characters
         private async void Reload()
         {
             isReloading = true;
-            reloadTimer.Start(reloadTime);
+            reloadTimer.Start(weapon.weaponResource.reloadTime);
             playerSprite.Play("reload");
             await ToSignal(reloadTimer, Timer.SignalName.Timeout);
             playerSprite.Play("gun");
 
-            ammoCurrent = ammoMax;
+            ammoCurrent = weapon.weaponResource.ammoPerMag;
             EmitSignal(SignalName.AmmoChanged);
             isReloading = false;
         }

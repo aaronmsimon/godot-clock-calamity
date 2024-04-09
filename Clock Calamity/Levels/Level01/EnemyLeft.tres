@@ -9,4 +9,4 @@ npc = ExtResource("1_h707e")
 health = 3
 speed = 100.0
 shots = 3
-timeBetweenShots = 0.75
+timeBetweenShots = 0.5
