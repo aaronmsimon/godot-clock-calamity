@@ -17,7 +17,6 @@ namespace CC.Characters
 
         private Node2D anchor;
         private Marker2D muzzle;
-        private Sprite2D crosshairs;
         private AnimatedSprite2D playerSprite;
 
         private int ammoCurrent;
@@ -28,7 +27,6 @@ namespace CC.Characters
         {
             anchor = GetNode<Node2D>("Anchor");
             muzzle = GetNode<Marker2D>("Anchor/MuzzleMarker");
-            crosshairs = GetNode<Sprite2D>("CrosshairsSprite");
             playerSprite = GetNode<AnimatedSprite2D>("Anchor/AnimatedSprite2D");
 
             AmmoChanged += OnAmmoChanged;
@@ -36,8 +34,6 @@ namespace CC.Characters
             EmitSignal(SignalName.AmmoChanged);
 
             AddChild(reloadTimer);
-
-            Input.MouseMode = Input.MouseModeEnum.Hidden;
         }
 
 
@@ -69,16 +65,9 @@ namespace CC.Characters
             }
         }
 
-        public override void _ExitTree()
-        {
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-        }
-
         private void AimAtMouse()
         {
             anchor.Rotate(anchor.GetAngleTo(GetGlobalMousePosition()));
-
-            crosshairs.GlobalPosition = GetGlobalMousePosition();
         }
 
         private void Fire()

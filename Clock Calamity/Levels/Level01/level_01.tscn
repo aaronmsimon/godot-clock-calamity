@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=15 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://Components/AStarGrid2DComponent.cs" id="9_bdrb5"]
 [ext_resource type="Resource" uid="uid://dmw62mx4cwd0f" path="res://Levels/Level01/PathsRight.tres" id="9_rqknn"]
 [ext_resource type="Script" path="res://Debug/Debug2D.cs" id="10_0l0xq"]
+[ext_resource type="Script" path="res://Components/CustomMouseComponent.cs" id="11_k0yr2"]
+[ext_resource type="Texture2D" uid="uid://ck8n2215ejinm" path="res://Sprites/UI/crosshair161.png" id="12_pi0h2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1685,3 +1687,7 @@ script = ExtResource("10_0l0xq")
 astarGrid2DComponent = NodePath("../AStarGrid2DComponent")
 drawGrid2DBarriers = true
 barrierColor = Color(1, 0, 0, 0.556863)
+
+[node name="CustomMouseComponent" type="Node2D" parent="."]
+script = ExtResource("11_k0yr2")
+cursorTexture = ExtResource("12_pi0h2")
