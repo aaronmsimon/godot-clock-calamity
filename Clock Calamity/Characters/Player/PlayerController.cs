@@ -5,7 +5,7 @@ namespace CC.Characters
 {
     public partial class PlayerController : Node2D
     {
-        [Export] private WeaponComponent weapon;
+        [Export] public WeaponComponent weapon { get; private set; }
 
         [Signal] public delegate void TakeCoverEventHandler();
         [Signal] public delegate void PeakLeftEventHandler();

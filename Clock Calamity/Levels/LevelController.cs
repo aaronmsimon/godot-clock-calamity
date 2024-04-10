@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using CC.Characters;
+using Components.Game;
 
 namespace CC.Level
 {
@@ -8,6 +9,7 @@ namespace CC.Level
     {
         private Array<Node> playerHides;
         private PlayerController player;
+        private StatsComponent statsComponent;
 
         private int playerHideIndex = 0;
 
@@ -15,10 +17,12 @@ namespace CC.Level
         {
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
             player = GetNode<PlayerController>("Player");
+            statsComponent = GetNode<StatsComponent>("StatsComponent");
 
             player.TakeCover += OnTakeCover;
             player.PeakLeft += OnPeakLeft;
             player.PeakRight += OnPeakRight;
+            player.weapon.ShotFired += OnShotFired;
 
             MovePlayer(CurrentHide().HidePosition);
         }
@@ -46,6 +50,11 @@ namespace CC.Level
         private void OnPeakRight()
         {
             MovePlayer(CurrentHide().RightPosition);
+        }
+
+        private void OnShotFired()
+        {
+            statsComponent.UpdateShotsFired(1);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Components.Weapons
         [Signal] public delegate void AmmoChangedEventHandler();
         [Signal] public delegate void ReloadStartedEventHandler();
         [Signal] public delegate void ReloadFinishedEventHandler();
+        [Signal] public delegate void ShotFiredEventHandler();
 
         public override void _Ready()
         {
@@ -44,6 +45,7 @@ namespace Components.Weapons
                 Node parent = GetParent().GetParent();
                 parent.AddChild(projectileInstance);
                 weaponResource.ammoMagCurrent--;
+                EmitSignal(SignalName.ShotFired);
                 EmitSignal(SignalName.AmmoChanged);
             }
         }
@@ -74,7 +76,7 @@ namespace Components.Weapons
 
         private void OnAmmoChanged()
         {
-            GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
+            // GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
         }
     }
 }

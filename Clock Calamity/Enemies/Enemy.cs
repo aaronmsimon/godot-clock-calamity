@@ -1,6 +1,7 @@
 using Godot;
 using System.Threading.Tasks;
 using Components.Pathfinding;
+using Components.Game;
 
 namespace CC.Characters
 {
@@ -8,7 +9,9 @@ namespace CC.Characters
     {
         [Export] private PackedScene projectile;
         [Export] private float projectileSpeed = 500f;
-        [Export] private float projectileDamage = 1;
+        [Export] private float projectileDamage = 1f;
+        [Export] private float scoreTiming = 3f;
+        [Export] private float baseScore = 1000f;
 
         // Resources
         public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
@@ -19,12 +22,17 @@ namespace CC.Characters
 
         // Pathfinding
         private FollowWaypointsComponent followWaypointsComponent;
+        
+        private StatsComponent statsComponent;
 
         // Aiming info
         private Node2D anchor;
         private Marker2D muzzle;
-        private Timer timer = new Timer();
+        private Timer shotTimer = new Timer();
         private bool firing = false;
+
+        // Scoring
+        private Timer scoreTimer = new Timer();
 
         // Signals
         [Signal] public delegate void DamagedEventHandler();
@@ -41,11 +49,12 @@ namespace CC.Characters
             followWaypointsComponent.pathResource = pathResource;
             followWaypointsComponent.npcResource = npcResource;
 
-            AddChild(timer);
-        }
+            statsComponent = GetNode<StatsComponent>("StatsComponent");
 
-        public override void _Process(double delta)
-        {
+            AddChild(shotTimer);
+            AddChild(scoreTimer);
+
+            scoreTimer.Start(scoreTiming);
         }
 
         public async Task Fire()
@@ -58,13 +67,14 @@ namespace CC.Characters
             Node parent = GetParent();
             parent.AddChild(projectileInstance);
 
-            timer.Start(npcResource.timeBetweenShots);
-            await ToSignal(timer, Timer.SignalName.Timeout);
+            shotTimer.Start(npcResource.timeBetweenShots);
+            await ToSignal(shotTimer, Timer.SignalName.Timeout);
         }
 
         public void TakeDamage(int damage)
         {
             npcResource.health -= damage;
+            statsComponent.UpdateShotsHit(1);
             EmitSignal(SignalName.Damaged);
 
             if (npcResource.health <= 0)
@@ -75,6 +85,7 @@ namespace CC.Characters
 
         public void Die()
         {
+            statsComponent.UpdateScore((int)((float)scoreTimer.TimeLeft / scoreTiming * baseScore));
             EmitSignal(SignalName.Died);
             QueueFree();
         }
