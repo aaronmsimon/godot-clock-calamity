@@ -17,6 +17,7 @@ namespace CC.Characters
         public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
         public WaypointsResource pathResource { private get; set; }
         public NPCResource npcResource { private get; set; }
+        public GridResource occupiedResource { private get; set; }
         
         public PlayerController player { get; private set; }
 
@@ -48,6 +49,7 @@ namespace CC.Characters
             followWaypointsComponent.astarGrid2DComponent = astarGrid2DComponent;
             followWaypointsComponent.pathResource = pathResource;
             followWaypointsComponent.npcResource = npcResource;
+            followWaypointsComponent.occupiedResource = occupiedResource;
 
             statsComponent = GetNode<StatsComponent>("StatsComponent");
 

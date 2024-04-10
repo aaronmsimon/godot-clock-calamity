@@ -1,3 +1,4 @@
+using System;
 using CC.Characters;
 using Godot;
 using Godot.Collections;
@@ -8,6 +9,7 @@ namespace Components.Pathfinding
     {
         [Export] private Enemy actor;
         [Export] public NPCResource npcResource { private get; set; }
+        [Export] public GridResource occupiedResource { private get; set; }
 
         public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
         public WaypointsResource pathResource { private get; set; }
@@ -40,7 +42,11 @@ namespace Components.Pathfinding
                 GD.PrintErr("A Path Resource is required to use the Follow Waypoints Component.");
                 return;
             }
-            if (path == null) return;
+            if (path == null)
+            {
+                return;
+            }
+
 
             Vector2I targetCell = path[cellIndex + 1];
             Vector2 targetPos = astarGrid2DComponent.tileMap.MapToLocal(targetCell) + astarGrid2DComponent.tileOffset * astarGrid2DComponent.tileMap.TileSet.TileSize;
@@ -50,21 +56,18 @@ namespace Components.Pathfinding
 
             if (!firing)
             {
+                if (CheckCellOccupied(GetNextCell()))
+                {
+                    FireAtTarget(Mathf.Inf);
+                    return;
+                }
                 actor.Rotate(actor.GetAngleTo(targetPos));
                 actor.GlobalPosition = new Vector2(targetX, targetY);
             }
 
             if (actor.GlobalPosition == targetPos)
             {
-                NextCell();
-            }
-
-            Vector2I currentCell = astarGrid2DComponent.tileMap.LocalToMap(actor.GlobalPosition - astarGrid2DComponent.tileOffset * astarGrid2DComponent.tileMap.TileSet.TileSize);
-            if (lastCellOccupied != currentCell)
-            {
-                // astarGrid2DComponent.astarGrid2D.SetPointSolid(lastCellOccupied, false);
-                // astarGrid2DComponent.astarGrid2D.SetPointSolid(currentCell, true);
-                lastCellOccupied = currentCell;
+                MoveNextCell();
             }
         }
 
@@ -73,6 +76,7 @@ namespace Components.Pathfinding
             if (pathIndex >= pathResource.waypoints.Count - 1)
             {
                 path = null;
+                FireAtTarget(Mathf.Inf);
                 return;
             }
 
@@ -80,21 +84,51 @@ namespace Components.Pathfinding
             pathIndex++;
         }
 
-        private async void NextCell()
+        private void MoveNextCell()
         {
+            Vector2I nextCell = GetNextCell();
+            occupiedResource.Data[nextCell.X, nextCell.Y] = true;
+            occupiedResource.Data[path[cellIndex].X, path[cellIndex].Y] = false;
+            
             cellIndex++;
             if (cellIndex >= path.Count - 1)
             {
                 cellIndex = 0;
+                FireAtTarget(npcResource.shots);
+                SetNextPath();
+            }
+        }
+
+        private async void FireAtTarget(float shotCount)
+        {
                 firing = true;
-                for (int i = 0; i < npcResource.shots; i++)
+                for (int i = 0; i < shotCount; i++)
                 {
                     actor.Rotate(actor.GetAngleTo(actor.player.GlobalPosition));
                     await actor.Fire();
                 }
                 firing = false;
-                SetNextPath();
+        }
+
+        private Vector2I GetNextCell()
+        {
+            if (cellIndex < path.Count - 1)
+            {
+                return path[cellIndex + 1];
             }
+            else if (pathIndex < pathResource.waypoints.Count - 1)
+            {
+                return pathResource.waypoints[pathIndex + 1];
+            }
+            else
+            {
+                return new Vector2I(0,0);
+            }
+        }
+
+        private bool CheckCellOccupied(Vector2I cellCheck)
+        {
+            return occupiedResource.Data[cellCheck.X, cellCheck.Y];
         }
     }
 }

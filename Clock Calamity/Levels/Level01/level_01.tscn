@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=15 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Enemies/SpawnPoint.cs" id="7_fnoxf"]
 [ext_resource type="Resource" uid="uid://ci8d2storteuk" path="res://Levels/Level01/EnemyLeft.tres" id="8_05yx6"]
 [ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathLeft.tres" id="8_xpbkp"]
+[ext_resource type="Resource" uid="uid://uqyakllifncw" path="res://Levels/Level01/Occupied.tres" id="9_os5vg"]
 [ext_resource type="Script" path="res://Components/Game/StatsComponent.cs" id="9_re2yl"]
 [ext_resource type="Script" path="res://Debug/Debug2D.cs" id="10_0l0xq"]
 [ext_resource type="Resource" uid="uid://bogqbro2wbpqb" path="res://Game/GameStatsResource.tres" id="10_qq8l6"]
@@ -1608,10 +1609,13 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 0
+custom_data_layer_0/name = "Occupied"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_wutwn")
 
 [node name="Level01" type="Node2D"]
 script = ExtResource("1_oc467")
+occupiedResource = ExtResource("9_os5vg")
 
 [node name="TileMap" type="TileMap" parent="."]
 unique_name_in_owner = true
@@ -1660,6 +1664,7 @@ script = ExtResource("7_fnoxf")
 astarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 pathResource = ExtResource("8_xpbkp")
 npcResource = ExtResource("8_05yx6")
+occupiedResource = ExtResource("9_os5vg")
 enemiesToSpawn = 5
 timeBetweenSpawns = 3.0
 

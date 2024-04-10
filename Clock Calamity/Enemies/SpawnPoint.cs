@@ -7,6 +7,7 @@ public partial class SpawnPoint : Marker2D
     [Export] private AStarGrid2DComponent astarGrid2DComponent;
     [Export] private WaypointsResource pathResource;
     [Export] private NPCResource npcResource;
+    [Export] private GridResource occupiedResource;
 
     [ExportGroup("Behavior")]
     [Export] private int enemiesToSpawn;
@@ -35,6 +36,7 @@ public partial class SpawnPoint : Marker2D
         enemyInstance.Set("astarGrid2DComponent", astarGrid2DComponent);
         enemyInstance.Set("pathResource", pathResource);
         enemyInstance.Set("npcResource", npcResource);
+        enemyInstance.Set("occupiedResource", occupiedResource);
         // Add to Tree
         Node parent = GetNode<Node>("%Enemies");
         parent.AddChild(enemyInstance);
