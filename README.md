@@ -1,6 +1,6 @@
 ## Directory Tree
-`Clock Calamity`  
-`├── Characters`  
+```Clock Calamity  
+├── Characters  
 │   ├── Player  
 │   │   ├── Pistol.tres  
 │   │   ├── player.tscn  
@@ -19,16 +19,17 @@
 │   ├── Weapons  
 │   │   ├── WeaponComponent.cs  
 │   │   ├── WeaponResource.cs  
-├── Debug
-│   ├── Debug2D.cs
-├── Enemies
-│   ├── Enemy.cs
-│   ├── NPCResource.cs
-│   ├── solider_1.tscn
-│   ├── SpawnPoint.cs
-├── Game
-│   ├── GameStatsResource.tres
-├── Levels
+├── Debug  
+│   ├── Debug2D.cs  
+├── Enemies  
+│   ├── Enemy.cs  
+│   ├── NPCResource.cs  
+│   ├── solider_1.tscn  
+│   ├── SpawnPoint.cs  
+├── Game  
+│   ├── GameStatsResource.tres  
+├── Levels  
+```
 │   ├── Level01
 │   │   ├── EnemyLeft.tres
 │   │   ├── level_01.tscn
