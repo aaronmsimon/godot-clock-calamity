@@ -1,6 +1,6 @@
 ## Directory Tree
-`Clock Calamity  
-├── Characters  
+`Clock Calamity`
+`├── Characters`
 │   ├── Player  
 │   │   ├── Pistol.tres  
 │   │   ├── player.tscn  
