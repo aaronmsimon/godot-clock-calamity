@@ -1,24 +1,24 @@
 ## Directory Tree
-Clock Calamity
-├── Characters
-│   ├── Player
-│   │   ├── Pistol.tres
-│   │   ├── player.tscn
-│   │   ├── PlayerController.cs
-├── Components
-│   ├── CustomCursor
-│   │   ├── CustomMouseComponent.cs
-│   ├── Game
-│   │   ├── GameStats.cs
-│   │   ├── StatsComponent.cs
-│   ├── Pathfinding
-│   │   ├── AStarGrid2DComponent.cs
-│   │   ├── FollowWaypointsComponent.cs
-│   │   ├── GridResource.cs
-│   │   ├── WaypointsResource.cs
-│   ├── Weapons
-│   │   ├── WeaponComponent.cs
-│   │   ├── WeaponResource.cs
+Clock Calamity  
+├── Characters  
+│   ├── Player  
+│   │   ├── Pistol.tres  
+│   │   ├── player.tscn  
+│   │   ├── PlayerController.cs  
+├── Components  
+│   ├── CustomCursor  
+│   │   ├── CustomMouseComponent.cs  
+│   ├── Game  
+│   │   ├── GameStats.cs  
+│   │   ├── StatsComponent.cs  
+│   ├── Pathfinding  
+│   │   ├── AStarGrid2DComponent.cs  
+│   │   ├── FollowWaypointsComponent.cs  
+│   │   ├── GridResource.cs  
+│   │   ├── WaypointsResource.cs  
+│   ├── Weapons  
+│   │   ├── WeaponComponent.cs  
+│   │   ├── WeaponResource.cs  
 ├── Debug
 │   ├── Debug2D.cs
 ├── Enemies
