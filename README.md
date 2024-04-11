@@ -1,5 +1,5 @@
 ## Directory Tree
-Clock Calamity  
+`Clock Calamity  
 ├── Characters  
 │   ├── Player  
 │   │   ├── Pistol.tres  
@@ -76,7 +76,7 @@ Clock Calamity
 ├── UI
 │   ├── UI_Ammo.cs
 │   ├── ui_ammo.tscn
-├── icon.svg
+├── icon.svg`
 
 ## Scene Trees
 
