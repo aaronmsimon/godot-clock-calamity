@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bogqbro2wbpqb"]
-
-[ext_resource type="Script" path="res://Components/Game/GameStats.cs" id="1_xf1j7"]
-
-[resource]
-script = ExtResource("1_xf1j7")
-_score = 0
-_shotsFired = 0
-_shotsHit = 0
