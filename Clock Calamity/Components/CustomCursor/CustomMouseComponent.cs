@@ -2,6 +2,7 @@ using Godot;
 
 namespace Components.CustomCursor
 {
+    [GlobalClass]
     public partial class CustomMouseComponent : Node2D
     {
         [ExportCategory("Custom Mouse Cursor")]
@@ -17,7 +18,7 @@ namespace Components.CustomCursor
             {
                 if (cursorTexture == null)
                 {
-                    GD.PrintErr("Please supply an image if you'd like to use a custom mouse cursor.");
+                    GD.PrintErr("The component CustomMouseComponent requires a cursor texture.");
                     return;
                 }
                 Input.SetCustomMouseCursor(cursorTexture);
