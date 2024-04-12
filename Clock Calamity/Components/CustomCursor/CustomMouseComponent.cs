@@ -7,7 +7,7 @@ namespace Components.CustomCursor
     {
         [ExportCategory("Custom Mouse Cursor")]
         [Export] private bool useCustomCursor;
-        [Export] private Texture cursorTexture;
+        [Export] private Texture2D cursorTexture;
 
         public override void _Ready()
         {
@@ -21,7 +21,7 @@ namespace Components.CustomCursor
                     GD.PrintErr("The component CustomMouseComponent requires a cursor texture.");
                     return;
                 }
-                Input.SetCustomMouseCursor(cursorTexture);
+                Input.SetCustomMouseCursor(cursorTexture, hotspot: new Vector2(cursorTexture.GetWidth() / 2, cursorTexture.GetHeight() / 2));
             }
         }
     }
