@@ -13,7 +13,7 @@ namespace Components.Game
         {
             if (gamestat == null)
             {
-                GD.PrintErr("The GameStatComponent " + this.Name + " requires a GameStatResource.");
+                GD.PrintErr("The GameStatComponent " + this.Name + " requires a GameStatResource. Please add one to node " + this.GetPath());
                 return;
             }
             gamestat.StatValue += amount;
@@ -24,7 +24,7 @@ namespace Components.Game
         {
             if (gamestat == null)
             {
-                GD.PrintErr("The GameStatComponent " + this.Name + " requires a GameStatResource.");
+                GD.PrintErr("The GameStatComponent " + this.Name + " requires a GameStatResource. Please add one to node " + this.GetPath());
                 return;
             }
             gamestat.StatValue = amount;

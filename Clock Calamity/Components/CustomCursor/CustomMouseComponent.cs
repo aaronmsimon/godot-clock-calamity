@@ -18,7 +18,7 @@ namespace Components.CustomCursor
             {
                 if (cursorTexture == null)
                 {
-                    GD.PrintErr("The component CustomMouseComponent requires a cursor texture.");
+                    GD.PrintErr("The component CustomMouseComponent requires a cursor texture. Please add one to node " + this.GetPath());
                     return;
                 }
                 Input.SetCustomMouseCursor(cursorTexture, hotspot: new Vector2(cursorTexture.GetWidth() / 2, cursorTexture.GetHeight() / 2));
