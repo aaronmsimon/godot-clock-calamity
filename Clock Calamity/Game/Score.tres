@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_m6t4l")
-StatName = "Score"
+StatName = ""
 StatValue = 0.0
