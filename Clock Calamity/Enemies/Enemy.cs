@@ -1,95 +1,58 @@
 using Godot;
-using System.Threading.Tasks;
 using Components.Pathfinding;
-using Components.Game;
 
-namespace CC.Characters
+namespace CC.Enemies
 {
+    [GlobalClass]
     public partial class Enemy : Node2D
     {
-        [Export] private PackedScene projectile;
-        [Export] private float projectileSpeed = 500f;
-        [Export] private float projectileDamage = 1f;
-        [Export] private float scoreTiming = 3f;
-        [Export] private float baseScore = 1000f;
+        [ExportGroup("A* Pathfinding Resources")]
+        [Export] private AStarGrid2DComponent aStarGrid2DComponent;
+        [Export] private Waypoints2DResource waypoints2DResource;
 
-        // Resources
-        public AStarGrid2DComponent astarGrid2DComponent { private get; set; }
-        public WaypointsResource pathResource { private get; set; }
-        public NPCResource npcResource { private get; set; }
-        public GridResource occupiedResource { private get; set; }
-        
-        public PlayerController player { get; private set; }
+        [ExportGroup("Movement")]
+        [Export] private float speed;
 
-        // Pathfinding
-        private FollowWaypointsComponent followWaypointsComponent;
-        
-        private StatsComponent statsComponent;
-
-        // Aiming info
-        private Node2D anchor;
-        private Marker2D muzzle;
-        private Timer shotTimer = new Timer();
-        private bool firing = false;
-
-        // Scoring
-        private Timer scoreTimer = new Timer();
-
-        // Signals
-        [Signal] public delegate void DamagedEventHandler();
-        [Signal] public delegate void DiedEventHandler();
+        private FollowWaypoints2DComponent followWaypoints2DComponent;
+        private Vector2 offset;
 
         public override void _Ready()
         {
-            player = GetNode<PlayerController>("../../Player");
-            anchor = GetNode<Node2D>("Anchor");
-            muzzle = GetNode<Marker2D>("Anchor/MuzzleMarker");
+            followWaypoints2DComponent = GetNode<FollowWaypoints2DComponent>("FollowWaypoints2DComponent");
 
-            followWaypointsComponent = GetNode<FollowWaypointsComponent>("FollowWaypointsComponent");
-            followWaypointsComponent.astarGrid2DComponent = astarGrid2DComponent;
-            followWaypointsComponent.pathResource = pathResource;
-            followWaypointsComponent.npcResource = npcResource;
-            followWaypointsComponent.occupiedResource = occupiedResource;
+            followWaypoints2DComponent.AStarGrid2DComponent = aStarGrid2DComponent;
+            followWaypoints2DComponent.Waypoints2DResource = waypoints2DResource;
 
-            statsComponent = GetNode<StatsComponent>("StatsComponent");
+            offset = aStarGrid2DComponent.tileMap.Position;
 
-            AddChild(shotTimer);
-            AddChild(scoreTimer);
-
-            scoreTimer.Start(scoreTiming);
-        }
-
-        public async Task Fire()
-        {
-            Node2D projectileInstance = (Node2D)projectile.Instantiate();
-            projectileInstance.Set("speed", projectileSpeed);
-            projectileInstance.Set("damage", projectileDamage);
-            projectileInstance.GlobalPosition = muzzle.GlobalPosition;
-            projectileInstance.Rotation = Rotation;
-            Node parent = GetParent();
-            parent.AddChild(projectileInstance);
-
-            shotTimer.Start(npcResource.timeBetweenShots);
-            await ToSignal(shotTimer, Timer.SignalName.Timeout);
-        }
-
-        public void TakeDamage(int damage)
-        {
-            npcResource.health -= damage;
-            statsComponent.UpdateShotsHit(1);
-            EmitSignal(SignalName.Damaged);
-
-            if (npcResource.health <= 0)
+            if (speed == 0)
             {
-                Die();
+                GD.PrintErr("Speed is set to zero. Is this right?");
             }
         }
 
-        public void Die()
+        public override void _Process(double delta)
         {
-            statsComponent.UpdateScore((int)((float)scoreTimer.TimeLeft / scoreTiming * baseScore));
-            EmitSignal(SignalName.Died);
-            QueueFree();
+            Pathfinding((float)delta);
+        }
+
+        private void Pathfinding(float delta)
+        {
+            if (followWaypoints2DComponent.GetNextCell() == null) return;
+
+            Vector2I targetCell = (Vector2I)followWaypoints2DComponent.GetNextCell();
+            Vector2 targetPos = followWaypoints2DComponent.GetCellPosition(targetCell) + offset;
+
+            float targetX = Mathf.MoveToward(GlobalPosition.X, targetPos.X, speed * delta);
+            float targetY = Mathf.MoveToward(GlobalPosition.Y, targetPos.Y, speed * delta);
+
+            Rotate(GetAngleTo(targetPos));
+            GlobalPosition = new Vector2(targetX, targetY);
+
+            if (GlobalPosition == targetPos)
+            {
+                followWaypoints2DComponent.NextCell();
+            }
         }
     }
 }

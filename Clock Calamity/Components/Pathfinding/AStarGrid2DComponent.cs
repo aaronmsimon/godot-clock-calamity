@@ -2,6 +2,7 @@ using Godot;
 
 namespace Components.Pathfinding
 {
+    [GlobalClass]
     public partial class AStarGrid2DComponent : Node2D
     {
         [ExportCategory("A* Grid2D Component")]
@@ -13,9 +14,6 @@ namespace Components.Pathfinding
         [ExportGroup("Barriers")]
         [Export] private bool hasBarriers;
         [Export] private int barrierLayer;
-
-        [ExportGroup("Offset")]
-        [Export] public Vector2 tileOffset { get; private set; }
 
         public AStarGrid2D astarGrid2D { get; private set; } = new AStarGrid2D();
 
