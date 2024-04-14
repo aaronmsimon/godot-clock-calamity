@@ -144,6 +144,5 @@ UI_Ammo 📜
 4. npc resource to ai resource
 
 ### Next Steps
-2. Refactor Spawn Points
 3. Refactor Enemy
 4. Refactor Level 1
