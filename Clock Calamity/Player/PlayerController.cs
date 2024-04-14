@@ -1,7 +1,9 @@
 using Godot;
 using Components.Weapons;
+using Components.Movement;
+using Components.Inputs;
 
-namespace CC.Characters
+namespace CC.Player
 {
     public partial class PlayerController : Node2D
     {
@@ -14,11 +16,15 @@ namespace CC.Characters
 
         private Marker2D muzzle;
         private AnimatedSprite2D playerSprite;
+        private FixedMovement2DComponent fixedMovement2DComponent;
+        private AxisInputComponent axisInputComponent;
 
         public override void _Ready()
         {
             muzzle = GetNode<Marker2D>("MuzzleMarker");
             playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+            fixedMovement2DComponent = GetNode<FixedMovement2DComponent>("FixedMovement2DComponent");
+            axisInputComponent = GetNode<AxisInputComponent>("AxisInputComponent");
 
             // weapon.ReloadStarted += OnReloadStarted;
             // weapon.ReloadFinished += OnReloadFinished;
@@ -30,17 +36,17 @@ namespace CC.Characters
             AimAtMouse();
 
             // Peaking
-            if (Input.IsActionPressed("peak_left"))
+            switch (axisInputComponent.InputAxis)
             {
-                GlobalPosition = peakLeftPos.GlobalPosition;
-            }
-            if (Input.IsActionPressed("peak_right"))
-            {
-                GlobalPosition = peakRightPos.GlobalPosition;
-            }
-            if (Input.IsActionJustReleased("peak_left") || Input.IsActionJustReleased("peak_right"))
-            {
-                GlobalPosition = hidePos.GlobalPosition;
+                case < 0:
+                    fixedMovement2DComponent.MoveActorToMarker(peakLeftPos);
+                    break;
+                case > 0:
+                    fixedMovement2DComponent.MoveActorToMarker(peakRightPos);
+                    break;
+                default:
+                    fixedMovement2DComponent.MoveActorToMarker(hidePos);
+                    break;
             }
 
             // if (Input.IsActionJustPressed("fire"))
