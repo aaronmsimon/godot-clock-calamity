@@ -30,7 +30,6 @@ animations = [{
 }]
 
 [node name="Player" type="Node2D"]
-position = Vector2(139, 98)
 script = ExtResource("1_7ci8c")
 
 [node name="MuzzleMarker" type="Marker2D" parent="."]
