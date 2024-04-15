@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=13 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
 [ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Player/player.tscn" id="3_dqqc6"]
-[ext_resource type="Script" path="res://Levels/Hide.cs" id="4_e7bxr"]
+[ext_resource type="Script" path="res://Components/Pathfinding/AStarGrid2DComponent.cs" id="5_t8uky"]
+[ext_resource type="Script" path="res://Components/Characters/Spawn2DComponent.cs" id="6_rk1ud"]
+[ext_resource type="Resource" uid="uid://ci8d2storteuk" path="res://Levels/Level01/EnemyLeft.tres" id="8_05yx6"]
+[ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathLeft.tres" id="8_xpbkp"]
+[ext_resource type="Resource" uid="uid://deghh1wtsgfjj" path="res://Levels/Level01/EnemyRight.tres" id="9_cfqgd"]
 [ext_resource type="Resource" uid="uid://uqyakllifncw" path="res://Levels/Level01/Occupied.tres" id="9_os5vg"]
-[ext_resource type="Script" path="res://Debug/Debug2D.cs" id="10_0l0xq"]
+[ext_resource type="Resource" uid="uid://bwkbvk75n8lit" path="res://Levels/Level01/PathRight.tres" id="10_bfvtu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1623,39 +1627,48 @@ layer_1/tile_data = PackedInt32Array(131084, 917504, 7, 655360, 1179648, 6, 7208
 layer_2/name = "Decoration"
 layer_2/tile_data = PackedInt32Array(131090, 1507328, 7, 589838, 1310720, 7, 655377, 1507328, 8, 524304, 1638400, 5, 655363, 1507328, 7, 262146, 1638400, 1342177285, 393219, 1310720, 805306375, 458761, 1638400, 4, 458764, 1638400, 1342177284, 327692, 1441792, 8, 458757, 1310720, 8)
 
-[node name="Player" parent="." instance=ExtResource("3_dqqc6")]
+[node name="Player" parent="." node_paths=PackedStringArray("peakLeftPos", "hidePos", "peakRightPos") instance=ExtResource("3_dqqc6")]
+peakLeftPos = NodePath("../PlayerHides/LeftMarker")
+hidePos = NodePath("../PlayerHides/HideMarker")
+peakRightPos = NodePath("../PlayerHides/RightMarker")
 
 [node name="PlayerHides" type="Node" parent="."]
 
-[node name="HideTree" type="Node" parent="PlayerHides" node_paths=PackedStringArray("hidePosition", "leftPosition", "rightPosition")]
-script = ExtResource("4_e7bxr")
-hidePosition = NodePath("HideMarker")
-leftPosition = NodePath("LeftMarker")
-rightPosition = NodePath("RightMarker")
-
-[node name="HideMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+[node name="HideMarker" type="Marker2D" parent="PlayerHides"]
 position = Vector2(608, 735)
 
-[node name="LeftMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+[node name="LeftMarker" type="Marker2D" parent="PlayerHides"]
 position = Vector2(554, 735)
 
-[node name="RightMarker" type="Marker2D" parent="PlayerHides/HideTree"]
+[node name="RightMarker" type="Marker2D" parent="PlayerHides"]
 position = Vector2(662, 735)
+
+[node name="AStarGrid2DComponent" type="Node2D" parent="." node_paths=PackedStringArray("tileMap")]
+script = ExtResource("5_t8uky")
+tileMap = NodePath("../TileMap")
+diagonalMode = 3
+hasBarriers = true
+barrierLayer = 1
 
 [node name="SpawnPoints" type="Node" parent="."]
 
-[node name="SpawnMarkerLeft" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnMarkerLeft" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
+process_mode = 4
 position = Vector2(160, -32)
+script = ExtResource("6_rk1ud")
+characterResource = ExtResource("8_05yx6")
+charactersToSpawn = 5
+timeBetweenSpawns = 5.0
+aStarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
+waypoints2DResource = ExtResource("8_xpbkp")
+target = NodePath("../../Player")
 
-[node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints"]
+[node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
 position = Vector2(1120, -32)
-
-[node name="Enemies" type="Node" parent="."]
-unique_name_in_owner = true
-
-[node name="Debug" type="Node2D" parent="."]
-script = ExtResource("10_0l0xq")
-drawGrid2DBarriers = true
-barrierColor = Color(1, 0, 0, 0.556863)
-drawPathing = true
-pathLineWidth = 5.0
+script = ExtResource("6_rk1ud")
+characterResource = ExtResource("9_cfqgd")
+charactersToSpawn = 3
+timeBetweenSpawns = 7.5
+aStarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
+waypoints2DResource = ExtResource("10_bfvtu")
+target = NodePath("../../Player")

@@ -1,7 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dmw62mx4cwd0f"]
-
-[ext_resource type="Script" path="res://Levels/AStarPathResource.cs" id="1_cnovc"]
-
-[resource]
-script = ExtResource("1_cnovc")
-_cells = Array[Vector2i]([Vector2i(18, 0), Vector2i(19, 3), Vector2i(15, 2), Vector2i(18, 7), Vector2i(17, 11)])

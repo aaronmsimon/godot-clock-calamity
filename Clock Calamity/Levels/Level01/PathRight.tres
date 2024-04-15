@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Waypoints2DResource" load_steps=2 format=3 uid="uid://bwkbvk75n8lit"]
+
+[ext_resource type="Script" path="res://Components/Pathfinding/Waypoints2DResource.cs" id="1_6r85f"]
+
+[resource]
+script = ExtResource("1_6r85f")
+waypoints = Array[Vector2i]([Vector2i(18, 0), Vector2i(18, 3), Vector2i(18, 7), Vector2i(17, 11)])

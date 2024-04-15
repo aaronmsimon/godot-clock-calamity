@@ -48,5 +48,5 @@ script = ExtResource("4_35qrp")
 [node name="FireProjectileComponent" type="Node2D" parent="."]
 script = ExtResource("4_yigu3")
 projectile = ExtResource("2_tkj5r")
-speed = 100.0
+speed = 200.0
 damage = 1.0

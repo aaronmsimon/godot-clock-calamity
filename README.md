@@ -146,8 +146,8 @@ UI_Ammo 📜
 6. SpawnComponent is really not a reusable component
 
 ### Next Steps
-4. Refactor Level 1
 5. Projectile Component
 6. Aim Component
 7. Refactor Debug2D
 8. Rename namespaces to 2D instead of components?
+9. Need to avoid moving to an occupied space

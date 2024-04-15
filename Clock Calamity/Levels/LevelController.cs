@@ -1,7 +1,5 @@
 using Godot;
 using Godot.Collections;
-using CC.Characters;
-using Components.Game;
 using Components.Pathfinding;
 
 namespace CC.Level
@@ -11,8 +9,7 @@ namespace CC.Level
         [Export] private GridResource occupiedResource;
 
         private Array<Node> playerHides;
-        private PlayerController player;
-        private StatsComponent statsComponent;
+        // private PlayerController player;
         private AStarGrid2DComponent astarGrid2DComponent;
 
         private int playerHideIndex = 0;
@@ -20,18 +17,10 @@ namespace CC.Level
         public override void _Ready()
         {
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
-            player = GetNode<PlayerController>("Player");
-            statsComponent = GetNode<StatsComponent>("StatsComponent");
+            // player = GetNode<PlayerController>("Player");
             astarGrid2DComponent = GetNode<AStarGrid2DComponent>("AStarGrid2DComponent");
 
             ResetGrid();
-
-            player.TakeCover += OnTakeCover;
-            player.PeakLeft += OnPeakLeft;
-            player.PeakRight += OnPeakRight;
-            player.weapon.ShotFired += OnShotFired;
-
-            MovePlayer(CurrentHide().HidePosition);
         }
 
         private void ResetGrid()
@@ -44,36 +33,6 @@ namespace CC.Level
                     occupiedResource.Data[x, y] = false;
                 }
             }
-        }
-
-        public Hide CurrentHide()
-        {
-            return (Hide)playerHides[playerHideIndex];
-        }
-
-        private void MovePlayer(Vector2 position)
-        {
-            player.GlobalPosition = position;
-        }
-
-        private void OnTakeCover()
-        {
-            MovePlayer(CurrentHide().HidePosition);
-        }
-
-        private void OnPeakLeft()
-        {
-            MovePlayer(CurrentHide().LeftPosition);
-        }
-
-        private void OnPeakRight()
-        {
-            MovePlayer(CurrentHide().RightPosition);
-        }
-
-        private void OnShotFired()
-        {
-            statsComponent.UpdateShotsFired(1);
         }
     }
 }
