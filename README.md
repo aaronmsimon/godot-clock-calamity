@@ -142,7 +142,13 @@ UI_Ammo 📜
 2. path follow component
 3. UI for ammo
 4. npc resource to ai resource
+5. enemy TLS handles movement - should be an ai movement component of some kind
+6. SpawnComponent is really not a reusable component
 
 ### Next Steps
 3. Refactor Enemy
 4. Refactor Level 1
+5. Projectile Component
+6. Aim Component
+7. Refactor Debug2D
+8. Rename namespaces to 2D instead of components?
