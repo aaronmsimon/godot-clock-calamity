@@ -37,11 +37,6 @@ namespace CC.Enemies
         private Timer scoreTimer = new Timer();
         private int health;
 
-private void OnScoreChanged()
-{
-    GD.Print($"Score: { scoreStatComponent.gamestat.StatValue }");
-}
-
         public override void _Ready()
         {
             if (aStarGrid2DComponent == null)
@@ -65,7 +60,6 @@ private void OnScoreChanged()
 
             followWaypoints2DComponent.EndOfPath += OnEndOfPath;
             followWaypoints2DComponent.EndOfWaypoints += OnEndOfWaypoints;
-scoreStatComponent.StatChanged += OnScoreChanged;
 
             offset = aStarGrid2DComponent.tileMap.Position;
             health = characterResource.health;
