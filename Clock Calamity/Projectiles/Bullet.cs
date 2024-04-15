@@ -1,12 +1,12 @@
 using Godot;
-using CC.Characters;
+using CC.Enemies;
 
 namespace CC.Shooting
 {
     public partial class Bullet : Node2D
     {
-        public float speed { get; set; } = 100f;
-        public int damage { get; set; } = 1;
+        private float speed = 100f;
+        private int damage = 1;
 
         private VisibleOnScreenNotifier2D visible;
         private Area2D collider;
@@ -30,8 +30,12 @@ namespace CC.Shooting
 
         private void OnAreaEntered(Area2D area)
         {
-            Enemy enemy = (Enemy)area.GetParent();
-            enemy.TakeDamage(damage);
+            Node parent = area.GetParent();
+            if (parent.GetType() == typeof(Enemy))
+            {
+                Enemy enemy = (Enemy)parent;
+                enemy.TakeDamage(damage);
+            }
             QueueFree();
         }
 
