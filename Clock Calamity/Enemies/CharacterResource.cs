@@ -1,12 +1,16 @@
 using Godot;
 
-public partial class NPCResource : Resource
+[GlobalClass]
+public partial class CharacterResource : Resource
 {
-    [ExportCategory("NPC Resource")]
-    [Export] public PackedScene npc { get; private set; }
-    [ExportGroup("Behavior")]
+    [ExportCategory("Character Resource")]
+    [Export] public PackedScene character { get; private set; }
+
+    [ExportGroup("Stats")]
     [Export] public int health { get; set; }
     [Export] public float speed { get; private set; }
+
+    [ExportGroup("Attack")]
     [Export] public int shots { get; private set; }
     [Export] public float timeBetweenShots { get; private set; }
 }

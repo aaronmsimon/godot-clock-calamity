@@ -1,17 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=9 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
-[ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Characters/Player/player.tscn" id="3_dqqc6"]
+[ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Player/player.tscn" id="3_dqqc6"]
 [ext_resource type="Script" path="res://Levels/Hide.cs" id="4_e7bxr"]
-[ext_resource type="Script" path="res://Components/Pathfinding/AStarGrid2DComponent.cs" id="5_movxi"]
-[ext_resource type="Script" path="res://Enemies/SpawnPoint.cs" id="7_fnoxf"]
-[ext_resource type="Resource" uid="uid://ci8d2storteuk" path="res://Levels/Level01/EnemyLeft.tres" id="8_05yx6"]
-[ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathLeft.tres" id="8_xpbkp"]
 [ext_resource type="Resource" uid="uid://uqyakllifncw" path="res://Levels/Level01/Occupied.tres" id="9_os5vg"]
-[ext_resource type="Script" path="res://Components/Game/StatsComponent.cs" id="9_re2yl"]
 [ext_resource type="Script" path="res://Debug/Debug2D.cs" id="10_0l0xq"]
-[ext_resource type="Resource" uid="uid://bogqbro2wbpqb" path="res://Game/GameStatsResource.tres" id="10_qq8l6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1648,43 +1642,20 @@ position = Vector2(554, 735)
 [node name="RightMarker" type="Marker2D" parent="PlayerHides/HideTree"]
 position = Vector2(662, 735)
 
-[node name="AStarGrid2DComponent" type="Node2D" parent="." node_paths=PackedStringArray("tileMap")]
-script = ExtResource("5_movxi")
-tileMap = NodePath("../TileMap")
-diagonalMode = 3
-hasBarriers = true
-barrierLayer = 1
-tileOffset = Vector2(-1, -1)
-
 [node name="SpawnPoints" type="Node" parent="."]
 
-[node name="SpawnMarkerLeft" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("astarGrid2DComponent")]
+[node name="SpawnMarkerLeft" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(160, -32)
-script = ExtResource("7_fnoxf")
-astarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
-pathResource = ExtResource("8_xpbkp")
-npcResource = ExtResource("8_05yx6")
-occupiedResource = ExtResource("9_os5vg")
-enemiesToSpawn = 5
-timeBetweenSpawns = 3.0
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(1120, -32)
-script = ExtResource("7_fnoxf")
-timeBetweenSpawns = 10.0
 
 [node name="Enemies" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="StatsComponent" type="Node" parent="."]
-script = ExtResource("9_re2yl")
-gameStats = ExtResource("10_qq8l6")
-
-[node name="Debug" type="Node2D" parent="." node_paths=PackedStringArray("astarGrid2DComponent")]
+[node name="Debug" type="Node2D" parent="."]
 script = ExtResource("10_0l0xq")
-astarGrid2DComponent = NodePath("../AStarGrid2DComponent")
 drawGrid2DBarriers = true
 barrierColor = Color(1, 0, 0, 0.556863)
-waypointsResource = Array[Resource]([ExtResource("8_xpbkp")])
 drawPathing = true
 pathLineWidth = 5.0
