@@ -2,6 +2,7 @@ using Godot;
 using Components.Weapons;
 using Components.Movement;
 using Components.Inputs;
+using Components.Projectiles2D;
 
 namespace CC.Player
 {
@@ -18,6 +19,8 @@ namespace CC.Player
         private AnimatedSprite2D playerSprite;
         private FixedMovement2DComponent fixedMovement2DComponent;
         private AxisInputComponent axisInputComponent;
+        private FireProjectileComponent fireProjectileComponent;
+        private ButtonInputComponent buttonInputComponent;
 
         public override void _Ready()
         {
@@ -25,6 +28,10 @@ namespace CC.Player
             playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             fixedMovement2DComponent = GetNode<FixedMovement2DComponent>("FixedMovement2DComponent");
             axisInputComponent = GetNode<AxisInputComponent>("AxisInputComponent");
+            fireProjectileComponent = GetNode<FireProjectileComponent>("FireProjectileComponent");
+            buttonInputComponent = GetNode<ButtonInputComponent>("ButtonInputComponent");
+
+            buttonInputComponent.OnButtonPressed += OnFireButtonPressed;
 
             // weapon.ReloadStarted += OnReloadStarted;
             // weapon.ReloadFinished += OnReloadFinished;
@@ -73,6 +80,11 @@ namespace CC.Player
         private void Fire()
         {
             // weapon.Fire();
+        }
+
+        private void OnFireButtonPressed()
+        {
+            fireProjectileComponent.Fire(muzzle.GlobalPosition, Rotation);
         }
 
         private void OnReloadStarted()
