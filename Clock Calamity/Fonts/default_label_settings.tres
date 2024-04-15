@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c23il2dj3cu5i"]
+
+[ext_resource type="FontFile" uid="uid://dgmp0n0vpp0lg" path="res://Fonts/Kenney Future.ttf" id="1_epp1e"]
+
+[resource]
+font = ExtResource("1_epp1e")
+font_size = 32

@@ -7,6 +7,21 @@ namespace Components.Game
     {
         [ExportCategory("Game Stat Resource")]
         [Export] public string StatName { get; set; }
-        [Export] public float StatValue { get; set; }
+        [Export] private float _statValue;
+
+        [Signal] public delegate void StatChangedEventHandler();
+
+        public float StatValue
+        {
+            get
+            {
+                return _statValue;
+            }
+            set
+            {
+                _statValue = value;
+                EmitSignal(SignalName.StatChanged);
+            }
+        }
     }
 }

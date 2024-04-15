@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Components.Pathfinding;
+using Components.Game;
 
 namespace CC.Level
 {
@@ -11,6 +12,8 @@ namespace CC.Level
         private Array<Node> playerHides;
         // private PlayerController player;
         private AStarGrid2DComponent astarGrid2DComponent;
+        private GameStatComponent scoreStatComponent;
+        private Label scoreLabel;
 
         private int playerHideIndex = 0;
 
@@ -19,8 +22,19 @@ namespace CC.Level
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
             // player = GetNode<PlayerController>("Player");
             astarGrid2DComponent = GetNode<AStarGrid2DComponent>("AStarGrid2DComponent");
+            scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
+            scoreLabel = GetNode<Label>("ScoreLabel");
+
+            if (scoreStatComponent == null)
+            {
+                GD.PrintErr($"Level { this.Name } does not have a GameStatComponent for the Score stat so scoring will not be tracked.");
+                return;
+            }
+
+            scoreStatComponent.gamestat.StatChanged += OnScoreChanged;
 
             ResetGrid();
+            OnScoreChanged();
         }
 
         private void ResetGrid()
@@ -33,6 +47,11 @@ namespace CC.Level
                     occupiedResource.Data[x, y] = false;
                 }
             }
+        }
+
+        private void OnScoreChanged()
+        {
+            scoreLabel.Text = $"Score: {scoreStatComponent.gamestat.StatValue:n0}";
         }
     }
 }

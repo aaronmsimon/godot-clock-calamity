@@ -7,8 +7,6 @@ namespace Components.Game
     {
         [Export] public GameStatResource gamestat { get; set; }
 
-        [Signal] public delegate void StatChangedEventHandler();
-
         public override void _Ready()
         {
             if (gamestat == null)
@@ -23,7 +21,6 @@ namespace Components.Game
             if (gamestat == null) return;
 
             gamestat.StatValue += amount;
-            EmitSignal(SignalName.StatChanged);
         }
 
         public void UpdateStatSetAmount(float amount)
@@ -31,7 +28,6 @@ namespace Components.Game
             if (gamestat == null) return;
             
             gamestat.StatValue = amount;
-            EmitSignal(SignalName.StatChanged);
         }
     }
 }

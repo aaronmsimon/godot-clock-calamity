@@ -144,6 +144,7 @@ UI_Ammo 📜
 4. npc resource to ai resource
 5. enemy TLS handles movement - should be an ai movement component of some kind
 6. SpawnComponent is really not a reusable component
+7. maybe an interface for projectiles?
 
 ### Next Steps
 5. Projectile Component
@@ -151,3 +152,4 @@ UI_Ammo 📜
 7. Refactor Debug2D
 8. Rename namespaces to 2D instead of components?
 9. Need to avoid moving to an occupied space
+10. Add sound effects

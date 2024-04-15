@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=16 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
@@ -10,6 +10,9 @@
 [ext_resource type="Resource" uid="uid://deghh1wtsgfjj" path="res://Levels/Level01/EnemyRight.tres" id="9_cfqgd"]
 [ext_resource type="Resource" uid="uid://uqyakllifncw" path="res://Levels/Level01/Occupied.tres" id="9_os5vg"]
 [ext_resource type="Resource" uid="uid://bwkbvk75n8lit" path="res://Levels/Level01/PathRight.tres" id="10_bfvtu"]
+[ext_resource type="Script" path="res://Components/Game/GameStatComponent.cs" id="11_t1gxi"]
+[ext_resource type="Resource" uid="uid://c6syc0a0dotrr" path="res://Game/Score.tres" id="12_87gnl"]
+[ext_resource type="LabelSettings" uid="uid://c23il2dj3cu5i" path="res://Fonts/default_label_settings.tres" id="13_7dmgi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1616,7 +1619,6 @@ script = ExtResource("1_oc467")
 occupiedResource = ExtResource("9_os5vg")
 
 [node name="TileMap" type="TileMap" parent="."]
-unique_name_in_owner = true
 position = Vector2(-64, -64)
 tile_set = SubResource("TileSet_flpu6")
 format = 2
@@ -1672,3 +1674,16 @@ timeBetweenSpawns = 7.5
 aStarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 waypoints2DResource = ExtResource("10_bfvtu")
 target = NodePath("../../Player")
+
+[node name="ScoreStatComponent" type="Node" parent="."]
+script = ExtResource("11_t1gxi")
+gamestat = ExtResource("12_87gnl")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 1280.0
+offset_bottom = 50.0
+text = "Score
+"
+label_settings = ExtResource("13_7dmgi")
+horizontal_alignment = 1
+vertical_alignment = 1
