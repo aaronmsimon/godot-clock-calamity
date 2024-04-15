@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cohjox78n3kkt"]
+[gd_scene load_steps=15 format=3 uid="uid://cohjox78n3kkt"]
 
 [ext_resource type="Script" path="res://Player/PlayerController.cs" id="1_7ci8c"]
 [ext_resource type="Texture2D" uid="uid://b6a6u4ijfwacd" path="res://Sprites/Characters/Hitman 1/hitman1_gun.png" id="1_v7obb"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://Components/Projectiles2D/FireProjectileComponent.cs" id="8_qy01e"]
 [ext_resource type="PackedScene" uid="uid://ch6hdy74mxibn" path="res://Projectiles/bullet.tscn" id="9_01ojo"]
 [ext_resource type="Script" path="res://Components/Input/ButtonInputComponent.cs" id="10_vcup4"]
+[ext_resource type="Script" path="res://Components/Game/GameStatComponent.cs" id="11_hgulm"]
+[ext_resource type="Resource" uid="uid://duphs8wr4dssq" path="res://Game/ShotsFired.tres" id="12_xuvfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n70sc"]
 atlas = ExtResource("4_cxsxn")
@@ -68,3 +70,7 @@ damage = 1.0
 [node name="ButtonInputComponent" type="Node" parent="."]
 script = ExtResource("10_vcup4")
 buttonAction = &"fire"
+
+[node name="ShotsFiredStatComponent" type="Node" parent="."]
+script = ExtResource("11_hgulm")
+gamestat = ExtResource("12_xuvfm")
