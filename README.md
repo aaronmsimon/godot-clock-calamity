@@ -146,7 +146,6 @@ UI_Ammo 📜
 6. SpawnComponent is really not a reusable component
 
 ### Next Steps
-3. Refactor Enemy
 4. Refactor Level 1
 5. Projectile Component
 6. Aim Component
