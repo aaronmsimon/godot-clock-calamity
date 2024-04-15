@@ -7,7 +7,7 @@ public partial class CharacterResource : Resource
     [Export] public PackedScene character { get; private set; }
 
     [ExportGroup("Stats")]
-    [Export] public int health { get; set; }
+    [Export] public int health { get; private set; }
     [Export] public float speed { get; private set; }
 
     [ExportGroup("Attack")]

@@ -2,6 +2,7 @@ using Godot;
 using Components.Pathfinding;
 using Components.Projectiles2D;
 using System.Threading.Tasks;
+using Components.Game;
 
 namespace CC.Enemies
 {
@@ -21,11 +22,25 @@ namespace CC.Enemies
         [Export] private Marker2D muzzle;
         [Export] private Node2D target;
 
+        [ExportGroup("Scoring")]
+        [Export] private float scoreTiming = 5f;
+        [Export] private float baseScore = 1000f;
+        [Export] private int minimumScore = 100;
+
         private FollowWaypoints2DComponent followWaypoints2DComponent;
         private Vector2 offset;
         private FireProjectileComponent fireProjectileComponent;
         private Timer shotTimer = new Timer();
         private bool isFiring = false;
+        private GameStatComponent shotsHitStatComponent;
+        private GameStatComponent scoreStatComponent;
+        private Timer scoreTimer = new Timer();
+        private int health;
+
+private void OnScoreChanged()
+{
+    GD.Print($"Score: { scoreStatComponent.gamestat.StatValue }");
+}
 
         public override void _Ready()
         {
@@ -42,16 +57,23 @@ namespace CC.Enemies
 
             followWaypoints2DComponent = GetNode<FollowWaypoints2DComponent>("FollowWaypoints2DComponent");
             fireProjectileComponent = GetNode<FireProjectileComponent>("FireProjectileComponent");
+            shotsHitStatComponent = GetNode<GameStatComponent>("ShotsHitStatComponent");
+            scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
 
             followWaypoints2DComponent.AStarGrid2DComponent = aStarGrid2DComponent;
             followWaypoints2DComponent.Waypoints2DResource = waypoints2DResource;
 
             followWaypoints2DComponent.EndOfPath += OnEndOfPath;
             followWaypoints2DComponent.EndOfWaypoints += OnEndOfWaypoints;
+scoreStatComponent.StatChanged += OnScoreChanged;
 
             offset = aStarGrid2DComponent.tileMap.Position;
+            health = characterResource.health;
 
             AddChild(shotTimer);
+            AddChild(scoreTimer);
+
+            scoreTimer.Start(scoreTiming);
 
             if (fireProjectileComponent == null)
             {
@@ -80,6 +102,23 @@ namespace CC.Enemies
             if (aStarGrid2DComponent == null || waypoints2DResource == null) return;
 
             Pathfinding((float)delta);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            shotsHitStatComponent.UpdateStatAddAmount(1);
+
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            scoreStatComponent.UpdateStatAddAmount((int)Mathf.Max((float)scoreTimer.TimeLeft / scoreTiming * baseScore, minimumScore));
+            QueueFree();
         }
 
         private void Pathfinding(float delta)

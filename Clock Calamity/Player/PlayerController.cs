@@ -3,6 +3,7 @@ using Components.Weapons;
 using Components.Movement;
 using Components.Inputs;
 using Components.Projectiles2D;
+using Components.Game;
 
 namespace CC.Player
 {
@@ -21,6 +22,7 @@ namespace CC.Player
         private AxisInputComponent axisInputComponent;
         private FireProjectileComponent fireProjectileComponent;
         private ButtonInputComponent buttonInputComponent;
+        private GameStatComponent shotsFiredStatComponent;
 
         public override void _Ready()
         {
@@ -30,6 +32,7 @@ namespace CC.Player
             axisInputComponent = GetNode<AxisInputComponent>("AxisInputComponent");
             fireProjectileComponent = GetNode<FireProjectileComponent>("FireProjectileComponent");
             buttonInputComponent = GetNode<ButtonInputComponent>("ButtonInputComponent");
+            shotsFiredStatComponent = GetNode<GameStatComponent>("ShotsFiredStatComponent");
 
             buttonInputComponent.OnButtonPressed += OnFireButtonPressed;
 
@@ -84,6 +87,7 @@ namespace CC.Player
 
         private void OnFireButtonPressed()
         {
+            shotsFiredStatComponent.UpdateStatAddAmount(1);
             fireProjectileComponent.Fire(muzzle.GlobalPosition, Rotation);
         }
 

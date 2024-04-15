@@ -1653,7 +1653,6 @@ barrierLayer = 1
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="SpawnMarkerLeft" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
-process_mode = 4
 position = Vector2(160, -32)
 script = ExtResource("6_rk1ud")
 characterResource = ExtResource("8_05yx6")
@@ -1664,6 +1663,7 @@ waypoints2DResource = ExtResource("8_xpbkp")
 target = NodePath("../../Player")
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
+process_mode = 4
 position = Vector2(1120, -32)
 script = ExtResource("6_rk1ud")
 characterResource = ExtResource("9_cfqgd")

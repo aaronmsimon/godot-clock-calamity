@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameStatResource" load_steps=2 format=3 uid="uid://duphs8wr4dssq"]
+
+[ext_resource type="Script" path="res://Components/Game/GameStatResource.cs" id="1_hphr7"]
+
+[resource]
+script = ExtResource("1_hphr7")
+StatName = ""
+StatValue = 0.0
