@@ -147,9 +147,11 @@ UI_Ammo 📜
 7. maybe an interface for projectiles?
 
 ### Next Steps
-5. Projectile Component
 6. Aim Component
 7. Refactor Debug2D
 8. Rename namespaces to 2D instead of components?
 9. Need to avoid moving to an occupied space
 10. Add sound effects
+11. WeaponComponent for Enemies
+12. Switching WeaponComponent
+13. Ammo in UI

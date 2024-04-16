@@ -7,10 +7,10 @@
 [ext_resource type="Script" path="res://Components/CustomCursor/CustomMouseComponent.cs" id="5_q2ew5"]
 [ext_resource type="Script" path="res://Components/Movement/FixedMovement2DComponent.cs" id="6_d08m3"]
 [ext_resource type="Script" path="res://Components/Input/AxisInputComponent.cs" id="7_o3o2p"]
-[ext_resource type="Script" path="res://Components/Projectiles2D/FireProjectileComponent.cs" id="8_qy01e"]
-[ext_resource type="PackedScene" uid="uid://ch6hdy74mxibn" path="res://Projectiles/bullet.tscn" id="9_01ojo"]
 [ext_resource type="Script" path="res://Components/Input/ButtonInputComponent.cs" id="10_vcup4"]
 [ext_resource type="Script" path="res://Components/Game/GameStatComponent.cs" id="11_hgulm"]
+[ext_resource type="Script" path="res://Components/Weapons/WeaponComponent.cs" id="11_notlm"]
+[ext_resource type="Resource" uid="uid://dpjnjci42rya4" path="res://Player/Pistol.tres" id="12_6x7uv"]
 [ext_resource type="Resource" uid="uid://duphs8wr4dssq" path="res://Game/ShotsFired.tres" id="12_xuvfm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n70sc"]
@@ -61,16 +61,18 @@ script = ExtResource("7_o3o2p")
 negativeAction = &"peak_left"
 positiveAction = &"peak_right"
 
-[node name="FireProjectileComponent" type="Node2D" parent="."]
-script = ExtResource("8_qy01e")
-projectile = ExtResource("9_01ojo")
-speed = 250.0
-damage = 1.0
-
-[node name="ButtonInputComponent" type="Node" parent="."]
+[node name="FireButtonInputComponent" type="Node" parent="."]
 script = ExtResource("10_vcup4")
 buttonAction = &"fire"
+
+[node name="ReloadButtonInputComponent" type="Node" parent="."]
+script = ExtResource("10_vcup4")
+buttonAction = &"reload"
 
 [node name="ShotsFiredStatComponent" type="Node" parent="."]
 script = ExtResource("11_hgulm")
 gamestat = ExtResource("12_xuvfm")
+
+[node name="WeaponComponent" type="Node" parent="."]
+script = ExtResource("11_notlm")
+weaponResource = ExtResource("12_6x7uv")

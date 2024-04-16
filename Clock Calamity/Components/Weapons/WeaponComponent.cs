@@ -2,6 +2,7 @@ using Godot;
 
 namespace Components.Weapons
 {
+    [GlobalClass]
     public partial class WeaponComponent : Node
     {
         [ExportCategory("Weapon Component")]
@@ -9,7 +10,6 @@ namespace Components.Weapons
 
         private bool isReloading;
         private Node2D weaponOwner;
-        private Node2D anchor;
         private Marker2D muzzle;
         private Timer reloadTimer = new Timer();
 
@@ -21,8 +21,7 @@ namespace Components.Weapons
         public override void _Ready()
         {
             weaponOwner = GetOwner<Node2D>();
-            anchor = weaponOwner.GetNode<Node2D>("Anchor");
-            muzzle = anchor.GetNode<Marker2D>("MuzzleMarker");
+            muzzle = weaponOwner.GetNode<Marker2D>("MuzzleMarker");
 
             AddChild(reloadTimer);
 
@@ -37,13 +36,18 @@ namespace Components.Weapons
         {
             if (weaponResource.ammoMagCurrent > 0 && !isReloading)
             {
-                Node2D projectileInstance = (Node2D)weaponResource.projectile.Instantiate();
-                projectileInstance.Set("speed", weaponResource.projectileSpeed);
-                projectileInstance.Set("damage", weaponResource.projectileDamage);
-                projectileInstance.GlobalPosition = muzzle.GlobalPosition;
-                projectileInstance.Rotation = anchor.Rotation;
-                Node parent = GetParent().GetParent();
-                parent.AddChild(projectileInstance);
+                // Create instance
+                Node2D instance = (Node2D)weaponResource.projectile.Instantiate();
+                // Set position & rotation
+                instance.GlobalPosition = muzzle.GlobalPosition;
+                instance.Rotation = weaponOwner.Rotation;
+                // Set projectile info
+                instance.Set("speed", weaponResource.projectileSpeed);
+                instance.Set("damage", weaponResource.projectileDamage);
+                // Get parent to set child to
+                Node parent = GetTree().CurrentScene;
+                // Add to scene as a child of this component
+                parent.AddChild(instance);
                 weaponResource.ammoMagCurrent--;
                 EmitSignal(SignalName.ShotFired);
                 EmitSignal(SignalName.AmmoChanged);

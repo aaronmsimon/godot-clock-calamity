@@ -1,9 +1,8 @@
 using Godot;
-using Components.Weapons;
 using Components.Movement;
 using Components.Inputs;
-using Components.Projectiles2D;
 using Components.Game;
+using Components.Weapons;
 
 namespace CC.Player
 {
@@ -20,9 +19,10 @@ namespace CC.Player
         private AnimatedSprite2D playerSprite;
         private FixedMovement2DComponent fixedMovement2DComponent;
         private AxisInputComponent axisInputComponent;
-        private FireProjectileComponent fireProjectileComponent;
-        private ButtonInputComponent buttonInputComponent;
+        private ButtonInputComponent fireButtonInputComponent;
+        private ButtonInputComponent reloadButtonInputComponent;
         private GameStatComponent shotsFiredStatComponent;
+        private WeaponComponent weaponComponent;
 
         public override void _Ready()
         {
@@ -30,14 +30,16 @@ namespace CC.Player
             playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             fixedMovement2DComponent = GetNode<FixedMovement2DComponent>("FixedMovement2DComponent");
             axisInputComponent = GetNode<AxisInputComponent>("AxisInputComponent");
-            fireProjectileComponent = GetNode<FireProjectileComponent>("FireProjectileComponent");
-            buttonInputComponent = GetNode<ButtonInputComponent>("ButtonInputComponent");
+            fireButtonInputComponent = GetNode<ButtonInputComponent>("FireButtonInputComponent");
+            reloadButtonInputComponent = GetNode<ButtonInputComponent>("ReloadButtonInputComponent");
             shotsFiredStatComponent = GetNode<GameStatComponent>("ShotsFiredStatComponent");
+            weaponComponent = GetNode<WeaponComponent>("WeaponComponent");
 
-            buttonInputComponent.OnButtonPressed += OnFireButtonPressed;
+            fireButtonInputComponent.OnButtonPressed += OnFireButtonPressed;
+            reloadButtonInputComponent.OnButtonPressed += OnReloadButtonPressed;
 
-            // weapon.ReloadStarted += OnReloadStarted;
-            // weapon.ReloadFinished += OnReloadFinished;
+            weaponComponent.ReloadStarted += OnReloadStarted;
+            weaponComponent.ReloadFinished += OnReloadFinished;
         }
 
         public override void _Process(double delta)
@@ -58,16 +60,6 @@ namespace CC.Player
                     fixedMovement2DComponent.MoveActorToMarker(hidePos);
                     break;
             }
-
-            // if (Input.IsActionJustPressed("fire"))
-            // {
-            //     Fire();
-            // }
-
-            // if (Input.IsActionJustPressed("reload"))
-            // {
-            //     weapon.Reload();
-            // }
         }
 
         private void AimAtMouse()
@@ -80,15 +72,15 @@ namespace CC.Player
             Rotate(muzzle.GetAngleTo(mousePos));
         }
 
-        private void Fire()
-        {
-            // weapon.Fire();
-        }
-
         private void OnFireButtonPressed()
         {
             shotsFiredStatComponent.UpdateStatAddAmount(1);
-            fireProjectileComponent.Fire(muzzle.GlobalPosition, Rotation);
+            weaponComponent.Fire();
+        }
+
+        private void OnReloadButtonPressed()
+        {
+            weaponComponent.Reload();
         }
 
         private void OnReloadStarted()
