@@ -145,6 +145,8 @@ UI_Ammo 📜
 5. enemy TLS handles movement - should be an ai movement component of some kind
 6. SpawnComponent is really not a reusable component
 7. maybe an interface for projectiles?
+8. UI health, ammo should be one component
+9. Need to add reload for enemies?
 
 ### Next Steps
 6. Aim Component
@@ -152,6 +154,7 @@ UI_Ammo 📜
 8. Rename namespaces to 2D instead of components?
 9. Need to avoid moving to an occupied space
 10. Add sound effects
-11. WeaponComponent for Enemies
 12. Switching WeaponComponent
 13. Ammo in UI
+14. Player take damage
+15. Health in UI

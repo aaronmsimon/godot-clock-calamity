@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_em0g5"]
 [ext_resource type="Texture2D" uid="uid://g1ta3ttfcpwg" path="res://Sprites/Characters/Soldier 1/soldier1_gun.png" id="1_n2wj6"]
-[ext_resource type="PackedScene" uid="uid://d2n6ci05ml7p7" path="res://Projectiles/enemy_bullet.tscn" id="2_tkj5r"]
 [ext_resource type="Script" path="res://Components/Pathfinding/FollowWaypoints2DComponent.cs" id="4_35qrp"]
-[ext_resource type="Script" path="res://Components/Projectiles2D/FireProjectileComponent.cs" id="4_yigu3"]
 [ext_resource type="Script" path="res://Components/Game/GameStatComponent.cs" id="6_4bq6l"]
 [ext_resource type="Resource" uid="uid://clxnu4a1k5urn" path="res://Game/ShotsHit.tres" id="7_aajug"]
 [ext_resource type="Resource" uid="uid://c6syc0a0dotrr" path="res://Game/Score.tres" id="8_iuona"]
+[ext_resource type="Script" path="res://Components/Weapons/WeaponComponent.cs" id="9_trfnl"]
+[ext_resource type="Resource" uid="uid://bkol5jb14e7qw" path="res://Levels/Level01/EnemyPistol.tres" id="10_8didb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qq2yn"]
 animations = [{
@@ -26,7 +26,7 @@ size = Vector2(52, 42)
 [node name="Soldier1" type="Node2D" node_paths=PackedStringArray("muzzle")]
 script = ExtResource("1_em0g5")
 speed = 100.0
-muzzle = NodePath("Anchor/MuzzleMarker")
+muzzle = NodePath("MuzzleMarker")
 
 [node name="Anchor" type="Node2D" parent="."]
 
@@ -35,7 +35,7 @@ sprite_frames = SubResource("SpriteFrames_qq2yn")
 animation = &"gun"
 autoplay = "gun"
 
-[node name="MuzzleMarker" type="Marker2D" parent="Anchor"]
+[node name="MuzzleMarker" type="Marker2D" parent="."]
 position = Vector2(25, 9)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -48,12 +48,6 @@ shape = SubResource("RectangleShape2D_upl5o")
 [node name="FollowWaypoints2DComponent" type="Node" parent="."]
 script = ExtResource("4_35qrp")
 
-[node name="FireProjectileComponent" type="Node2D" parent="."]
-script = ExtResource("4_yigu3")
-projectile = ExtResource("2_tkj5r")
-speed = 200.0
-damage = 1.0
-
 [node name="ShotsHitStatComponent" type="Node" parent="."]
 script = ExtResource("6_4bq6l")
 gamestat = ExtResource("7_aajug")
@@ -61,3 +55,7 @@ gamestat = ExtResource("7_aajug")
 [node name="ScoreStatComponent" type="Node" parent="."]
 script = ExtResource("6_4bq6l")
 gamestat = ExtResource("8_iuona")
+
+[node name="WeaponComponent" type="Node" parent="."]
+script = ExtResource("9_trfnl")
+weaponResource = ExtResource("10_8didb")

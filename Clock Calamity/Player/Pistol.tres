@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dpjnjci42rya4"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://dpjnjci42rya4"]
 
 [ext_resource type="PackedScene" uid="uid://ch6hdy74mxibn" path="res://Projectiles/bullet.tscn" id="1_cp6iw"]
 [ext_resource type="Script" path="res://Components/Weapons/WeaponResource.cs" id="2_5jmdg"]
@@ -10,6 +10,7 @@ projectile = ExtResource("1_cp6iw")
 projectileSpeed = 500
 projectileDamage = 1
 projectilesPerShot = 1
+MagazineInfinite = false
 ammoPerMag = 10
 reloadTime = 0.75
 ammoInfinite = true

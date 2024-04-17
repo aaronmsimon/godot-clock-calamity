@@ -2,6 +2,7 @@ using Godot;
 
 namespace Components.Weapons
 {
+    [GlobalClass]
     public partial class WeaponResource : Resource
     {
         [ExportCategory("Weapon Resource")]
@@ -10,6 +11,7 @@ namespace Components.Weapons
         [Export] public int projectileSpeed { get; private set; }
         [Export] public int projectileDamage { get; private set; }
         [Export] public int projectilesPerShot { get; private set; }
+        [Export] public bool MagazineInfinite { get; private set; }
         [Export] public int ammoPerMag { get; private set; }
         [Export] public float reloadTime { get; private set; }
         

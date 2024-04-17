@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfifbyr2ltkg4"]
+[gd_scene load_steps=3 format=3 uid="uid://bfifbyr2ltkg4"]
 
 [ext_resource type="Script" path="res://UI/UI_Ammo.cs" id="1_ff0an"]
+[ext_resource type="LabelSettings" uid="uid://c23il2dj3cu5i" path="res://Fonts/default_label_settings.tres" id="2_gkgr1"]
 
 [node name="UI_Ammo" type="Control"]
 layout_mode = 3
@@ -22,3 +23,17 @@ offset_left = -80.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "test"
+label_settings = ExtResource("2_gkgr1")

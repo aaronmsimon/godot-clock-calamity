@@ -71,16 +71,26 @@ namespace Components.Weapons
 
         private void SetMaxMagAmmo()
         {
-            float ammoNeeded = weaponResource.ammoPerMag - weaponResource.ammoMagCurrent;
-            float ammoReloaded = Mathf.Min(weaponResource.ammoTotalCurrent, ammoNeeded);
-            weaponResource.ammoTotalCurrent -= ammoReloaded;
-            weaponResource.ammoMagCurrent += ammoReloaded;
+            if (weaponResource.MagazineInfinite)
+            {
+                weaponResource.ammoMagCurrent = Mathf.Inf;
+            }
+            else
+            {
+                float ammoNeeded = weaponResource.ammoPerMag - weaponResource.ammoMagCurrent;
+                float ammoReloaded = Mathf.Min(weaponResource.ammoTotalCurrent, ammoNeeded);
+                weaponResource.ammoTotalCurrent -= ammoReloaded;
+                weaponResource.ammoMagCurrent += ammoReloaded;
+            }
             EmitSignal(SignalName.AmmoChanged);
         }
 
         private void OnAmmoChanged()
         {
-            // GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
+            if (weaponOwner.Name == "Player")
+            {
+                GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
+            }
         }
     }
 }

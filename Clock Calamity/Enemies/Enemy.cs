@@ -1,8 +1,8 @@
 using Godot;
 using Components.Pathfinding;
-using Components.Projectiles2D;
-using System.Threading.Tasks;
 using Components.Game;
+using Components.Weapons;
+using System.Threading.Tasks;
 
 namespace CC.Enemies
 {
@@ -29,7 +29,7 @@ namespace CC.Enemies
 
         private FollowWaypoints2DComponent followWaypoints2DComponent;
         private Vector2 offset;
-        private FireProjectileComponent fireProjectileComponent;
+        private WeaponComponent weaponComponent;
         private Timer shotTimer = new Timer();
         private bool isFiring = false;
         private GameStatComponent shotsHitStatComponent;
@@ -51,7 +51,7 @@ namespace CC.Enemies
             }
 
             followWaypoints2DComponent = GetNode<FollowWaypoints2DComponent>("FollowWaypoints2DComponent");
-            fireProjectileComponent = GetNode<FireProjectileComponent>("FireProjectileComponent");
+            weaponComponent = GetNode<WeaponComponent>("WeaponComponent");
             shotsHitStatComponent = GetNode<GameStatComponent>("ShotsHitStatComponent");
             scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
 
@@ -69,9 +69,9 @@ namespace CC.Enemies
 
             scoreTimer.Start(scoreTiming);
 
-            if (fireProjectileComponent == null)
+            if (weaponComponent.weaponResource == null)
             {
-                GD.PrintErr($"Enemy at { this.GetPath() } needs a FireProjectileComponent.");
+                GD.PrintErr($"Enemy at { this.GetPath() } needs a WeaponResource.");
                 return;
             }
             if (muzzle == null)
@@ -151,7 +151,7 @@ namespace CC.Enemies
             for (int i = 0; i < shots; i++)
             {
                 Rotate(Aim(target));
-                fireProjectileComponent.Fire(muzzle.GlobalPosition, Rotation);
+                weaponComponent.Fire();
 
                 shotTimer.Start(timeBetweenShots);
                 await ToSignal(shotTimer, Timer.SignalName.Timeout);

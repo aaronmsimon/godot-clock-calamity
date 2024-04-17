@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://bkol5jb14e7qw"]
+
+[ext_resource type="Script" path="res://Components/Weapons/WeaponResource.cs" id="1_0g7ux"]
+[ext_resource type="PackedScene" uid="uid://d2n6ci05ml7p7" path="res://Projectiles/enemy_bullet.tscn" id="1_pey1v"]
+
+[resource]
+script = ExtResource("1_0g7ux")
+weaponName = ""
+projectile = ExtResource("1_pey1v")
+projectileSpeed = 175
+projectileDamage = 1
+projectilesPerShot = 1
+MagazineInfinite = true
+ammoPerMag = 0
+reloadTime = 0.0
+ammoInfinite = true
+ammoMax = 0
