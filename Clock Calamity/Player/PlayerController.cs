@@ -6,9 +6,13 @@ using Components.Weapons;
 
 namespace CC.Player
 {
-    public partial class PlayerController : Node2D
+    public partial class PlayerController : Node2D, IDamageable
     {
         [ExportCategory("Player Controller")]
+
+        [ExportGroup("Info")]
+        [Export] private PlayerResource playerResource;
+
         [ExportGroup("Peaking")]
         [Export] private Marker2D peakLeftPos;
         [Export] private Marker2D hidePos;
@@ -26,6 +30,7 @@ namespace CC.Player
 
         public override void _Ready()
         {
+            // Get nodes
             muzzle = GetNode<Marker2D>("MuzzleMarker");
             playerSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             fixedMovement2DComponent = GetNode<FixedMovement2DComponent>("FixedMovement2DComponent");
@@ -35,11 +40,19 @@ namespace CC.Player
             shotsFiredStatComponent = GetNode<GameStatComponent>("ShotsFiredStatComponent");
             weaponComponent = GetNode<WeaponComponent>("WeaponComponent");
 
+            // Setup listeners
             fireButtonInputComponent.OnButtonPressed += OnFireButtonPressed;
             reloadButtonInputComponent.OnButtonPressed += OnReloadButtonPressed;
 
             weaponComponent.ReloadStarted += OnReloadStarted;
             weaponComponent.ReloadFinished += OnReloadFinished;
+
+            playerResource.HealthChanged += OnHealthChanged;
+            playerResource.Die += OnDie;
+
+            // Setup starting variables
+            playerResource.CurrentHealth = playerResource.StartingHealth;
+            playerResource.IsAlive = true;
         }
 
         public override void _Process(double delta)
@@ -72,6 +85,11 @@ namespace CC.Player
             Rotate(muzzle.GetAngleTo(mousePos));
         }
 
+        public void TakeDamage(int damage)
+        {
+            playerResource.CurrentHealth -= damage;
+        }
+
         private void OnFireButtonPressed()
         {
             shotsFiredStatComponent.UpdateStatAddAmount(1);
@@ -91,6 +109,17 @@ namespace CC.Player
         private void OnReloadFinished()
         {
             playerSprite.Play("gun");
+        }
+
+        private void OnHealthChanged()
+        {
+            GD.Print($"Player Health: {playerResource.CurrentHealth}");
+        }
+
+        private void OnDie()
+        {
+            GD.Print("Player died");
+            QueueFree();
         }
     }
 }

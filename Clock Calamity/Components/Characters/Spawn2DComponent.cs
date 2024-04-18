@@ -71,7 +71,7 @@ namespace Components.Characters
 
         private void OnSpawnTimerTimeout()
         {
-            if (characterCount < charactersToSpawn)
+            if (characterCount < charactersToSpawn && IsInstanceValid(target))
             {
                 SpawnCharacter();
                 characterCount++;

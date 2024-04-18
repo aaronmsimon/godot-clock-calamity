@@ -3,11 +3,12 @@ using Components.Pathfinding;
 using Components.Game;
 using Components.Weapons;
 using System.Threading.Tasks;
+using CC.Player;
 
 namespace CC.Enemies
 {
     [GlobalClass]
-    public partial class Enemy : Node2D
+    public partial class Enemy : Node2D, IDamageable
     {
         [Export] private CharacterResource characterResource;
 
@@ -150,6 +151,8 @@ namespace CC.Enemies
 
             for (int i = 0; i < shots; i++)
             {
+                if (!IsInstanceValid(target)) return;
+                
                 Rotate(Aim(target));
                 weaponComponent.Fire();
 

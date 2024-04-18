@@ -1,5 +1,5 @@
 using Godot;
-using CC.Enemies;
+using System;
 
 namespace CC.Shooting
 {
@@ -31,10 +31,10 @@ namespace CC.Shooting
         private void OnAreaEntered(Area2D area)
         {
             Node parent = area.GetParent();
-            if (parent.GetType() == typeof(Enemy))
+            if (parent is IDamageable)
             {
-                Enemy enemy = (Enemy)parent;
-                enemy.TakeDamage(damage);
+                IDamageable entity = (IDamageable)parent;
+                entity.TakeDamage(damage);
             }
             QueueFree();
         }
