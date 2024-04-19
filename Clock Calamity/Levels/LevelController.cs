@@ -39,12 +39,12 @@ namespace CC.Level
 
         private void ResetGrid()
         {
-            occupiedResource.Data = new bool[astarGrid2DComponent.astarGrid2D.Region.Size.X, astarGrid2DComponent.astarGrid2D.Region.Size.Y];
+            occupiedResource.Data = new Node2D[astarGrid2DComponent.astarGrid2D.Region.Size.X, astarGrid2DComponent.astarGrid2D.Region.Size.Y];
             for (int x = 0; x < astarGrid2DComponent.astarGrid2D.Region.Size.X; x++)
             {
                 for (int y = 0; y < astarGrid2DComponent.astarGrid2D.Region.Size.Y; y++)
                 {
-                    occupiedResource.Data[x, y] = false;
+                    occupiedResource.Data[x, y] = null;
                 }
             }
         }

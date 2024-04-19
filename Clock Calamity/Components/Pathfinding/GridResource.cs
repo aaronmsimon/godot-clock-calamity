@@ -2,5 +2,5 @@ using Godot;
 
 public partial class GridResource : Resource
 {
-    public bool[,] Data { get; set; }
+    public Node2D[,] Data { get; set; }
 }

@@ -15,6 +15,7 @@ namespace CC.Enemies
         [ExportGroup("A* Pathfinding Resources")]
         [Export] public AStarGrid2DComponent aStarGrid2DComponent;
         [Export] private Waypoints2DResource waypoints2DResource;
+        [Export] private GridResource gridResource;
 
         [ExportGroup("Movement")]
         [Export] private float speed;
@@ -128,13 +129,22 @@ namespace CC.Enemies
 
             if (!isFiring)
             {
-                Rotate(GetAngleTo(targetPos));
-                GlobalPosition = new Vector2(targetX, targetY);
+                if (gridResource.Data[targetCell.X, targetCell.Y] == null || gridResource.Data[targetCell.X, targetCell.Y] == this)
+                {
+                    Rotate(GetAngleTo(targetPos));
+                    GlobalPosition = new Vector2(targetX, targetY);
+                }
+                else
+                {
+                    OnEndOfWaypoints();
+                }
             }
 
             if (GlobalPosition == targetPos)
             {
+                gridResource.Data[followWaypoints2DComponent.CurrentCell.X, followWaypoints2DComponent.CurrentCell.Y] = null;
                 followWaypoints2DComponent.NextCell();
+                gridResource.Data[followWaypoints2DComponent.CurrentCell.X, followWaypoints2DComponent.CurrentCell.Y] = this;
             }
         }
 

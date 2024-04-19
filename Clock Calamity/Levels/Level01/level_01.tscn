@@ -1634,6 +1634,7 @@ layer_2/tile_data = PackedInt32Array(131090, 1507328, 7, 589838, 1310720, 7, 655
 peakLeftPos = NodePath("../PlayerHides/LeftMarker")
 hidePos = NodePath("../PlayerHides/HideMarker")
 peakRightPos = NodePath("../PlayerHides/RightMarker")
+invincible = true
 
 [node name="PlayerHides" type="Node" parent="."]
 
@@ -1659,10 +1660,11 @@ barrierLayer = 1
 position = Vector2(160, -32)
 script = ExtResource("6_rk1ud")
 characterResource = ExtResource("8_05yx6")
-charactersToSpawn = 5
+charactersToSpawn = 3
 timeBetweenSpawns = 5.0
 aStarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 waypoints2DResource = ExtResource("8_xpbkp")
+gridResource = ExtResource("9_os5vg")
 target = NodePath("../../Player")
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
@@ -1690,5 +1692,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 4
 stream = ExtResource("14_wn21c")
 autoplay = true

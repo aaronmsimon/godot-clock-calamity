@@ -17,6 +17,7 @@ namespace Components.Characters
         [ExportGroup("Pathfinding")]
         [Export] private AStarGrid2DComponent aStarGrid2DComponent;
         [Export] private Waypoints2DResource waypoints2DResource;
+        [Export] private GridResource gridResource;
 
         [ExportGroup("Firing")]
         [Export] private Node2D target;
@@ -62,6 +63,7 @@ namespace Components.Characters
             // Set pathfinding info
             instance.Set("aStarGrid2DComponent", aStarGrid2DComponent);
             instance.Set("waypoints2DResource", waypoints2DResource);
+            instance.Set("gridResource", gridResource);
             instance.Set("target", target);
             instance.Set("characterResource", characterResource);
             Enemy test = (Enemy)instance;

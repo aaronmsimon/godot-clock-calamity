@@ -19,6 +19,9 @@ namespace CC.Player
         [Export] private Marker2D peakRightPos;
         // [Export] public WeaponComponent weapon { get; private set; }
 
+        [ExportGroup("Invincibility")]
+        [Export] private bool invincible;
+
         private Marker2D muzzle;
         private AnimatedSprite2D playerSprite;
         private FixedMovement2DComponent fixedMovement2DComponent;
@@ -87,7 +90,10 @@ namespace CC.Player
 
         public void TakeDamage(int damage)
         {
-            playerResource.CurrentHealth -= damage;
+            if (!invincible)
+            {
+                playerResource.CurrentHealth -= damage;
+            }
         }
 
         private void OnFireButtonPressed()
