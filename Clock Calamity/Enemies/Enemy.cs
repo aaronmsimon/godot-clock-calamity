@@ -113,6 +113,7 @@ namespace CC.Enemies
 
         private void Die()
         {
+            gridResource.Data[followWaypoints2DComponent.CurrentCell.X, followWaypoints2DComponent.CurrentCell.Y] = null;
             scoreStatComponent.UpdateStatAddAmount((int)Mathf.Max((float)scoreTimer.TimeLeft / scoreTiming * baseScore, minimumScore));
             QueueFree();
         }

@@ -1676,7 +1676,6 @@ gridResource = ExtResource("9_os5vg")
 target = NodePath("../../Player")
 
 [node name="SpawnMarkerRight" type="Marker2D" parent="SpawnPoints" node_paths=PackedStringArray("aStarGrid2DComponent", "target")]
-process_mode = 4
 position = Vector2(1120, -32)
 script = ExtResource("6_rk1ud")
 characterResource = ExtResource("9_cfqgd")
@@ -1684,6 +1683,7 @@ charactersToSpawn = 3
 timeBetweenSpawns = 7.5
 aStarGrid2DComponent = NodePath("../../AStarGrid2DComponent")
 waypoints2DResource = ExtResource("10_bfvtu")
+gridResource = ExtResource("9_os5vg")
 target = NodePath("../../Player")
 
 [node name="ScoreStatComponent" type="Node" parent="."]
