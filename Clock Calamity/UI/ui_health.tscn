@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmoiigir6ohl1"]
+
+[ext_resource type="Script" path="res://UI/UI_Health.cs" id="1_ogmvf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rshri"]
+
+[sub_resource type="Theme" id="Theme_pa3il"]
+Panel/styles/panel = SubResource("StyleBoxEmpty_rshri")
+
+[node name="UI_Health" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ogmvf")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+theme = SubResource("Theme_pa3il")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_direction = 2
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="HealthGridContainer" type="GridContainer" parent="Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3

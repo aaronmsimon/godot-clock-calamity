@@ -11,7 +11,7 @@ namespace CC.Player
         [ExportCategory("Player Controller")]
 
         [ExportGroup("Info")]
-        [Export] private PlayerResource playerResource;
+        [Export] public PlayerResource playerResource { get; private set; }
 
         [ExportGroup("Peaking")]
         [Export] private Marker2D peakLeftPos;
