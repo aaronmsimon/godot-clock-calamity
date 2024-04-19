@@ -138,13 +138,7 @@ UI_Ammo 📜
 ```
 
 ### Backlog
-1. Do I need time between shots for player?
-2. path follow component
-3. UI for ammo
-4. npc resource to ai resource
 5. enemy TLS handles movement - should be an ai movement component of some kind
-6. SpawnComponent is really not a reusable component
-7. maybe an interface for projectiles?
 8. UI health, ammo should be one component
 9. Need to add reload for enemies?
 10. Rename namespaces to 2D instead of components?
@@ -152,7 +146,6 @@ UI_Ammo 📜
 
 ### Next Steps
 7. Refactor Debug2D
-8. Need to avoid moving to an occupied space
 9. Add sound effects
 10. Switching WeaponComponent
 11. Ammo in UI
