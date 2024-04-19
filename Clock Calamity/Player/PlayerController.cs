@@ -22,6 +22,8 @@ namespace CC.Player
         [ExportGroup("Invincibility")]
         [Export] private bool invincible;
 
+        public WeaponComponent weaponComponent { get; private set; }
+
         private Marker2D muzzle;
         private AnimatedSprite2D playerSprite;
         private FixedMovement2DComponent fixedMovement2DComponent;
@@ -29,7 +31,6 @@ namespace CC.Player
         private ButtonInputComponent fireButtonInputComponent;
         private ButtonInputComponent reloadButtonInputComponent;
         private GameStatComponent shotsFiredStatComponent;
-        private WeaponComponent weaponComponent;
 
         public override void _Ready()
         {

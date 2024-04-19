@@ -148,5 +148,4 @@ UI_Ammo 📜
 7. Refactor Debug2D
 9. Add sound effects
 10. Switching WeaponComponent
-11. Ammo in UI
 13. Health in UI
