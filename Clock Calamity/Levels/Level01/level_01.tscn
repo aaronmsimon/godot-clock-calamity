@@ -1,10 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=27 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
 [ext_resource type="PackedScene" uid="uid://cohjox78n3kkt" path="res://Player/player.tscn" id="3_dqqc6"]
+[ext_resource type="Resource" uid="uid://duphs8wr4dssq" path="res://Game/ShotsFired.tres" id="5_h1oy7"]
 [ext_resource type="Script" path="res://Components/Pathfinding/AStarGrid2DComponent.cs" id="5_t8uky"]
+[ext_resource type="Resource" uid="uid://clxnu4a1k5urn" path="res://Game/ShotsHit.tres" id="6_4m531"]
 [ext_resource type="Script" path="res://Components/Characters/Spawn2DComponent.cs" id="6_rk1ud"]
+[ext_resource type="Resource" uid="uid://ch1y5fewdifly" path="res://Game/EnemiesKilled.tres" id="7_3x0hm"]
 [ext_resource type="Resource" uid="uid://ci8d2storteuk" path="res://Levels/Level01/EnemyLeft.tres" id="8_05yx6"]
 [ext_resource type="Resource" uid="uid://biq5j1qc5rhak" path="res://Levels/Level01/PathLeft.tres" id="8_xpbkp"]
 [ext_resource type="Resource" uid="uid://deghh1wtsgfjj" path="res://Levels/Level01/EnemyRight.tres" id="9_cfqgd"]
@@ -1629,7 +1632,7 @@ script = ExtResource("1_oc467")
 occupiedResource = ExtResource("9_os5vg")
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-93, -60)
+position = Vector2(-64, -64)
 tile_set = SubResource("TileSet_flpu6")
 format = 2
 layer_0/name = "Ground"
@@ -1643,6 +1646,10 @@ layer_2/tile_data = PackedInt32Array(131090, 1507328, 7, 589838, 1310720, 7, 655
 peakLeftPos = NodePath("../PlayerHides/LeftMarker")
 hidePos = NodePath("../PlayerHides/HideMarker")
 peakRightPos = NodePath("../PlayerHides/RightMarker")
+shotsFired = ExtResource("5_h1oy7")
+shotsHit = ExtResource("6_4m531")
+enemiesKilled = ExtResource("7_3x0hm")
+score = ExtResource("12_87gnl")
 
 [node name="PlayerHides" type="Node" parent="."]
 

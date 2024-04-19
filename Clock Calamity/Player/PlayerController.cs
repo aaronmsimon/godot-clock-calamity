@@ -19,6 +19,12 @@ namespace CC.Player
         [Export] private Marker2D peakRightPos;
         // [Export] public WeaponComponent weapon { get; private set; }
 
+        [ExportGroup("Stats")]
+        [Export] private GameStatResource shotsFired;
+        [Export] private GameStatResource shotsHit;
+        [Export] private GameStatResource enemiesKilled;
+        [Export] private GameStatResource score;
+
         [ExportGroup("Invincibility")]
         [Export] private bool invincible;
 
@@ -126,6 +132,7 @@ namespace CC.Player
         private void OnDie()
         {
             GD.Print("Player died");
+            GD.Print($"Shots: { shotsHit.StatValue } / { shotsFired.StatValue } ({ shotsHit.StatValue / shotsFired.StatValue * 100 } accuracy). { enemiesKilled.StatValue } enemies killed. Score: { score.StatValue }");
             QueueFree();
         }
     }

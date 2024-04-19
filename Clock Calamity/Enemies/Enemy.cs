@@ -35,6 +35,7 @@ namespace CC.Enemies
         private Timer shotTimer = new Timer();
         private bool isFiring = false;
         private GameStatComponent shotsHitStatComponent;
+        private GameStatComponent enemiesKilledStatComponent;
         private GameStatComponent scoreStatComponent;
         private Timer scoreTimer = new Timer();
         private int health;
@@ -55,6 +56,7 @@ namespace CC.Enemies
             followWaypoints2DComponent = GetNode<FollowWaypoints2DComponent>("FollowWaypoints2DComponent");
             weaponComponent = GetNode<WeaponComponent>("WeaponComponent");
             shotsHitStatComponent = GetNode<GameStatComponent>("ShotsHitStatComponent");
+            enemiesKilledStatComponent = GetNode<GameStatComponent>("EnemiesKilledStatComponent");
             scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
 
             followWaypoints2DComponent.AStarGrid2DComponent = aStarGrid2DComponent;
@@ -114,6 +116,7 @@ namespace CC.Enemies
         private void Die()
         {
             gridResource.Data[followWaypoints2DComponent.CurrentCell.X, followWaypoints2DComponent.CurrentCell.Y] = null;
+            enemiesKilledStatComponent.UpdateStatAddAmount(1);
             scoreStatComponent.UpdateStatAddAmount((int)Mathf.Max((float)scoreTimer.TimeLeft / scoreTiming * baseScore, minimumScore));
             QueueFree();
         }
