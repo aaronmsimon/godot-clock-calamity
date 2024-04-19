@@ -146,5 +146,6 @@ UI_Ammo 📜
 
 ### Next Steps
 7. Refactor Debug2D
-9. Add sound effects
+9. Add sound effects - hit, hurt
 10. Switching WeaponComponent
+11. Add flashing for enemies hit

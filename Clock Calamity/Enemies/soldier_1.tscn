@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc6lgvxp6igjq"]
+[gd_scene load_steps=12 format=3 uid="uid://cc6lgvxp6igjq"]
 
 [ext_resource type="Script" path="res://Enemies/Enemy.cs" id="1_em0g5"]
 [ext_resource type="Texture2D" uid="uid://g1ta3ttfcpwg" path="res://Sprites/Characters/Soldier 1/soldier1_gun.png" id="1_n2wj6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Components/Game/GameStatComponent.cs" id="6_4bq6l"]
 [ext_resource type="Resource" uid="uid://clxnu4a1k5urn" path="res://Game/ShotsHit.tres" id="7_aajug"]
 [ext_resource type="Resource" uid="uid://c6syc0a0dotrr" path="res://Game/Score.tres" id="8_iuona"]
+[ext_resource type="AudioStream" uid="uid://hk3tjusufofv" path="res://Audio/SFX/pistol_enemy.ogg" id="9_1n17r"]
 [ext_resource type="Script" path="res://Components/Weapons/WeaponComponent.cs" id="9_trfnl"]
 [ext_resource type="Resource" uid="uid://bkol5jb14e7qw" path="res://Levels/Level01/EnemyPistol.tres" id="10_8didb"]
 
@@ -59,3 +60,4 @@ gamestat = ExtResource("8_iuona")
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("9_trfnl")
 weaponResource = ExtResource("10_8didb")
+shootSFX = ExtResource("9_1n17r")

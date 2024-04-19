@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cohjox78n3kkt"]
+[gd_scene load_steps=19 format=3 uid="uid://cohjox78n3kkt"]
 
 [ext_resource type="Script" path="res://Player/PlayerController.cs" id="1_7ci8c"]
 [ext_resource type="Texture2D" uid="uid://b6a6u4ijfwacd" path="res://Sprites/Characters/Hitman 1/hitman1_gun.png" id="1_v7obb"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://Components/Weapons/WeaponComponent.cs" id="11_notlm"]
 [ext_resource type="Resource" uid="uid://dpjnjci42rya4" path="res://Player/Pistol.tres" id="12_6x7uv"]
 [ext_resource type="Resource" uid="uid://duphs8wr4dssq" path="res://Game/ShotsFired.tres" id="12_xuvfm"]
+[ext_resource type="AudioStream" uid="uid://cbek7ufvq0gnv" path="res://Audio/SFX/reload.ogg" id="14_nwx3g"]
+[ext_resource type="AudioStream" uid="uid://f22k0p0xkl4q" path="res://Audio/SFX/pistol_player.ogg" id="14_r00f2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n70sc"]
 atlas = ExtResource("4_cxsxn")
@@ -81,6 +83,9 @@ gamestat = ExtResource("12_xuvfm")
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("11_notlm")
 weaponResource = ExtResource("12_6x7uv")
+shootSFX = ExtResource("14_r00f2")
+reloadSFX = ExtResource("14_nwx3g")
+reloadVolumeDB = -5.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 0
