@@ -66,5 +66,3 @@ gamestat = ExtResource("8_iuona")
 script = ExtResource("9_trfnl")
 weaponResource = ExtResource("10_8didb")
 shootSFX = ExtResource("9_1n17r")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]

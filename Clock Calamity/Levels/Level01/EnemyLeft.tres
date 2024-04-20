@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CharacterResource" load_steps=3 format=3 uid="uid://ci8d2storteuk"]
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=4 format=3 uid="uid://ci8d2storteuk"]
 
 [ext_resource type="Script" path="res://Enemies/CharacterResource.cs" id="1_0qimp"]
+[ext_resource type="PackedScene" uid="uid://buaqfahjbik7j" path="res://Enemies/Splat.tscn" id="1_3q2y1"]
 [ext_resource type="PackedScene" uid="uid://cc6lgvxp6igjq" path="res://Enemies/soldier_1.tscn" id="1_h707e"]
 
 [resource]
@@ -10,3 +11,4 @@ health = 3
 speed = 100.0
 shots = 3
 timeBetweenShots = 0.5
+Splat = ExtResource("1_3q2y1")

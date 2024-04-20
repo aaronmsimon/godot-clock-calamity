@@ -143,10 +143,11 @@ UI_Ammo 📜
 9. Need to add reload for enemies?
 10. Rename namespaces to 2D instead of components?
 11. Aim Component
+12. Spawn Component
+13. Does player need splat?
 
 ### Next Steps
 7. Refactor Debug2D
 9. Add sound effects - hit, hurt
 10. Switching WeaponComponent
 11. Add flashing for enemies hit
-12. Splat for enemy death (and player?) - set at enemy level (can adjust for bigger enemies)

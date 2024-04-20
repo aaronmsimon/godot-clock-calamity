@@ -1,0 +1,49 @@
+[gd_scene load_steps=38 format=3 uid="uid://buaqfahjbik7j"]
+
+[ext_resource type="Script" path="res://Components/Effects/RandomTextureComponent.cs" id="1_sw8ha"]
+[ext_resource type="Texture2D" uid="uid://c21esqkugt8ka" path="res://Sprites/Splat/splat00.png" id="2_ece5q"]
+[ext_resource type="Texture2D" uid="uid://c2wuraf60h774" path="res://Sprites/Splat/splat01.png" id="3_mwlpl"]
+[ext_resource type="Texture2D" uid="uid://dr1kgceamlku7" path="res://Sprites/Splat/splat02.png" id="4_i1ewm"]
+[ext_resource type="Texture2D" uid="uid://c4m2o67460heo" path="res://Sprites/Splat/splat03.png" id="5_wguh6"]
+[ext_resource type="Texture2D" uid="uid://cdgu4trge1deh" path="res://Sprites/Splat/splat04.png" id="6_edohj"]
+[ext_resource type="Texture2D" uid="uid://2b1ecwhgm8mp" path="res://Sprites/Splat/splat05.png" id="7_7iuqs"]
+[ext_resource type="Texture2D" uid="uid://c3nqeynb2c8jq" path="res://Sprites/Splat/splat06.png" id="8_dnjm0"]
+[ext_resource type="Texture2D" uid="uid://cbcyqqgbdm4ds" path="res://Sprites/Splat/splat07.png" id="9_v5bnb"]
+[ext_resource type="Texture2D" uid="uid://b42qa0bogagpa" path="res://Sprites/Splat/splat08.png" id="10_a0ybw"]
+[ext_resource type="Texture2D" uid="uid://bafdhfn5t56ia" path="res://Sprites/Splat/splat09.png" id="11_nw7tr"]
+[ext_resource type="Texture2D" uid="uid://cvefxv43mjlip" path="res://Sprites/Splat/splat10.png" id="12_ud04h"]
+[ext_resource type="Texture2D" uid="uid://jr7gwgawuvyw" path="res://Sprites/Splat/splat11.png" id="13_4e4r6"]
+[ext_resource type="Texture2D" uid="uid://bc0acu5wq2jsh" path="res://Sprites/Splat/splat12.png" id="14_g250g"]
+[ext_resource type="Texture2D" uid="uid://8mul7hgiqqvk" path="res://Sprites/Splat/splat13.png" id="15_owaiu"]
+[ext_resource type="Texture2D" uid="uid://ckcm4lkyx87wx" path="res://Sprites/Splat/splat14.png" id="16_wapnk"]
+[ext_resource type="Texture2D" uid="uid://wsek53our1uf" path="res://Sprites/Splat/splat15.png" id="17_ko2ip"]
+[ext_resource type="Texture2D" uid="uid://bofq5hmq6jr7y" path="res://Sprites/Splat/splat16.png" id="18_owe2j"]
+[ext_resource type="Texture2D" uid="uid://dodnyxxn745u1" path="res://Sprites/Splat/splat17.png" id="19_n0vbl"]
+[ext_resource type="Texture2D" uid="uid://beuy2ojxjb8i8" path="res://Sprites/Splat/splat18.png" id="20_dveub"]
+[ext_resource type="Texture2D" uid="uid://dki3k3adpnor3" path="res://Sprites/Splat/splat19.png" id="21_vhsie"]
+[ext_resource type="Texture2D" uid="uid://2ia7qyjvwod7" path="res://Sprites/Splat/splat20.png" id="22_4rdl5"]
+[ext_resource type="Texture2D" uid="uid://dg2i4alel07te" path="res://Sprites/Splat/splat21.png" id="23_phi8c"]
+[ext_resource type="Texture2D" uid="uid://cddfvtt8ei1vk" path="res://Sprites/Splat/splat22.png" id="24_fr8ul"]
+[ext_resource type="Texture2D" uid="uid://byqdgp5ol52in" path="res://Sprites/Splat/splat23.png" id="25_mdndw"]
+[ext_resource type="Texture2D" uid="uid://dqc5g0himl11u" path="res://Sprites/Splat/splat24.png" id="26_3nxuy"]
+[ext_resource type="Texture2D" uid="uid://c5krrhae6opuh" path="res://Sprites/Splat/splat25.png" id="27_38gll"]
+[ext_resource type="Texture2D" uid="uid://b0knle23fprp" path="res://Sprites/Splat/splat26.png" id="28_3vwhi"]
+[ext_resource type="Texture2D" uid="uid://byiyxp464dc4a" path="res://Sprites/Splat/splat27.png" id="29_8w0ia"]
+[ext_resource type="Texture2D" uid="uid://dy3bw5cjgtj8t" path="res://Sprites/Splat/splat28.png" id="30_yyrhe"]
+[ext_resource type="Texture2D" uid="uid://icf6b1qj32kw" path="res://Sprites/Splat/splat29.png" id="31_lc85t"]
+[ext_resource type="Texture2D" uid="uid://6tf474882j4s" path="res://Sprites/Splat/splat30.png" id="32_77mur"]
+[ext_resource type="Texture2D" uid="uid://coynb6pj52ifj" path="res://Sprites/Splat/splat31.png" id="33_eh64v"]
+[ext_resource type="Texture2D" uid="uid://csnh10wj2smqh" path="res://Sprites/Splat/splat32.png" id="34_m3nbs"]
+[ext_resource type="Texture2D" uid="uid://6h6ijevwf166" path="res://Sprites/Splat/splat33.png" id="35_meflb"]
+[ext_resource type="Texture2D" uid="uid://c8b4mqg6jrndd" path="res://Sprites/Splat/splat34.png" id="36_ujow5"]
+[ext_resource type="Texture2D" uid="uid://b7aq8anqgk1qp" path="res://Sprites/Splat/splat35.png" id="37_1kxic"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RandomTextureComponent" type="Sprite2D" parent="."]
+scale = 0.2
+script = ExtResource("1_sw8ha")
+textures = Array[Texture2D]([ExtResource("2_ece5q"), ExtResource("3_mwlpl"), ExtResource("4_i1ewm"), ExtResource("5_wguh6"), ExtResource("6_edohj"), ExtResource("7_7iuqs"), ExtResource("8_dnjm0"), ExtResource("9_v5bnb"), ExtResource("10_a0ybw"), ExtResource("11_nw7tr"), ExtResource("12_ud04h"), ExtResource("13_4e4r6"), ExtResource("14_g250g"), ExtResource("15_owaiu"), ExtResource("16_wapnk"), ExtResource("17_ko2ip"), ExtResource("18_owe2j"), ExtResource("19_n0vbl"), ExtResource("20_dveub"), ExtResource("21_vhsie"), ExtResource("22_4rdl5"), ExtResource("23_phi8c"), ExtResource("24_fr8ul"), ExtResource("25_mdndw"), ExtResource("26_3nxuy"), ExtResource("27_38gll"), ExtResource("28_3vwhi"), ExtResource("29_8w0ia"), ExtResource("30_yyrhe"), ExtResource("31_lc85t"), ExtResource("32_77mur"), ExtResource("33_eh64v"), ExtResource("34_m3nbs"), ExtResource("35_meflb"), ExtResource("36_ujow5"), ExtResource("37_1kxic")])
+spriteColor = Color(0.513726, 0, 0.0509804, 1)
+scale = 0.2
+fadeTime = 3.0

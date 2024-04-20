@@ -13,4 +13,7 @@ public partial class CharacterResource : Resource
     [ExportGroup("Attack")]
     [Export] public int shots { get; private set; }
     [Export] public float timeBetweenShots { get; private set; }
+
+    [ExportGroup("Death")]
+    [Export] public PackedScene Splat { get; private set; }
 }

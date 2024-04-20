@@ -3,7 +3,6 @@ using Components.Pathfinding;
 using Components.Game;
 using Components.Weapons;
 using System.Threading.Tasks;
-using CC.Player;
 
 namespace CC.Enemies
 {
@@ -118,6 +117,12 @@ namespace CC.Enemies
             gridResource.Data[followWaypoints2DComponent.CurrentCell.X, followWaypoints2DComponent.CurrentCell.Y] = null;
             enemiesKilledStatComponent.UpdateStatAddAmount(1);
             scoreStatComponent.UpdateStatAddAmount((int)Mathf.Max((float)scoreTimer.TimeLeft / scoreTiming * baseScore, minimumScore));
+
+            Node2D instance = (Node2D)characterResource.Splat.Instantiate();
+            instance.GlobalPosition = GlobalPosition;
+            Node parent = GetTree().CurrentScene;
+            parent.AddChild(instance);
+
             QueueFree();
         }
 
