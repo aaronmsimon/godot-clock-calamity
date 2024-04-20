@@ -148,6 +148,7 @@ UI_Ammo 📜
 
 ### Next Steps
 7. Refactor Debug2D
-9. Add sound effects - hit, hurt
+9. Add sound effects - hit
 10. Switching WeaponComponent
-11. Add flashing for enemies hit
+12. Need game over screen with scores and option to try again
+13. need title screen and have it take you to level 1 (for now)

@@ -3,6 +3,8 @@ using Components.Pathfinding;
 using Components.Game;
 using Components.Weapons;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using Components.Effects;
 
 namespace CC.Enemies
 {
@@ -38,6 +40,8 @@ namespace CC.Enemies
         private GameStatComponent scoreStatComponent;
         private Timer scoreTimer = new Timer();
         private int health;
+        private AudioStreamPlayer2D deathAudio = new AudioStreamPlayer2D();
+        private FlashComponent flashComponent;
 
         public override void _Ready()
         {
@@ -57,6 +61,7 @@ namespace CC.Enemies
             shotsHitStatComponent = GetNode<GameStatComponent>("ShotsHitStatComponent");
             enemiesKilledStatComponent = GetNode<GameStatComponent>("EnemiesKilledStatComponent");
             scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
+            flashComponent = GetNode<FlashComponent>("FlashComponent");
 
             followWaypoints2DComponent.AStarGrid2DComponent = aStarGrid2DComponent;
             followWaypoints2DComponent.Waypoints2DResource = waypoints2DResource;
@@ -69,6 +74,14 @@ namespace CC.Enemies
 
             AddChild(shotTimer);
             AddChild(scoreTimer);
+            Node parent = GetTree().CurrentScene;
+            parent.CallDeferred("add_child", deathAudio);
+
+            if (characterResource.deathSFX != null)
+            {
+                deathAudio.Stream = characterResource.deathSFX;
+            }
+            deathAudio.Finished += () => QueueFree();
 
             scoreTimer.Start(scoreTiming);
 
@@ -101,10 +114,11 @@ namespace CC.Enemies
             Pathfinding((float)delta);
         }
 
-        public void TakeDamage(int damage)
+        public async void TakeDamage(int damage)
         {
             health -= damage;
             shotsHitStatComponent.UpdateStatAddAmount(1);
+            await flashComponent.Flash();
 
             if (health <= 0)
             {
@@ -118,12 +132,18 @@ namespace CC.Enemies
             enemiesKilledStatComponent.UpdateStatAddAmount(1);
             scoreStatComponent.UpdateStatAddAmount((int)Mathf.Max((float)scoreTimer.TimeLeft / scoreTiming * baseScore, minimumScore));
 
-            Node2D instance = (Node2D)characterResource.Splat.Instantiate();
-            instance.GlobalPosition = GlobalPosition;
-            Node parent = GetTree().CurrentScene;
-            parent.AddChild(instance);
+            if (characterResource.Splat != null)
+            {
+                Node2D instance = (Node2D)characterResource.Splat.Instantiate();
+                instance.GlobalPosition = GlobalPosition;
+                Node parent = GetTree().CurrentScene;
+                parent.AddChild(instance);
+            }
 
-            QueueFree();
+            ProcessMode = ProcessModeEnum.Disabled;
+            Visible = false;
+
+            deathAudio.Play();
         }
 
         private void Pathfinding(float delta)
@@ -180,7 +200,6 @@ namespace CC.Enemies
             }
 
             isFiring = false;
-            
         }
 
         private async void OnEndOfPath()

@@ -16,4 +16,5 @@ public partial class CharacterResource : Resource
 
     [ExportGroup("Death")]
     [Export] public PackedScene Splat { get; private set; }
+    [Export] public AudioStream deathSFX { get; private set; }
 }
