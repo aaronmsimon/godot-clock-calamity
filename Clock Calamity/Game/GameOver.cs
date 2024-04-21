@@ -28,7 +28,27 @@ public partial class GameOver : Node
         scoreLabel.Text = $"{scoreResource.StatValue:n0}";
         shotsFiredLabel.Text = shotsFiredResource.StatValue.ToString();
         shotsHitLabel.Text = shotsHitResource.StatValue.ToString();
-        accuracyLabel.Text = $"{Mathf.Round(shotsHitResource.StatValue / shotsFiredResource.StatValue * 100)}%";
+        if (shotsFiredResource.StatValue > 0)
+        {
+            accuracyLabel.Text = $"{Mathf.Round(shotsHitResource.StatValue / shotsFiredResource.StatValue * 100)}%";
+        }
+        else
+        {
+            accuracyLabel.Text = "0%";
+        }
         enemiesKilledLabel.Text = enemiesKilledResource.StatValue.ToString();
-    }   
+    }
+
+    public override void _Process(double delta)
+    {
+        if (Input.IsActionJustPressed("ui_accept"))
+        {
+            scoreResource.StatValue = 0;
+            shotsFiredResource.StatValue = 0;
+            shotsHitResource.StatValue = 0;
+            enemiesKilledResource.StatValue = 0;
+
+            GetTree().ChangeSceneToFile("res://Levels/Level01/level_01.tscn");
+        }
+    }
 }

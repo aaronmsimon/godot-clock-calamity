@@ -145,6 +145,7 @@ UI_Ammo 📜
 11. Aim Component
 12. Spawn Component
 13. Does player need splat?
+14. Clean up game over screen
 
 ### Next Steps
 7. Refactor Debug2D
@@ -152,3 +153,4 @@ UI_Ammo 📜
 10. Switching WeaponComponent
 12. Need game over screen with scores and option to try again
 13. need title screen and have it take you to level 1 (for now)
+14. try again is hard-coded

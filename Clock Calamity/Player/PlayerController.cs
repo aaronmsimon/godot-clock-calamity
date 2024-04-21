@@ -83,6 +83,11 @@ namespace CC.Player
                     fixedMovement2DComponent.MoveActorToMarker(hidePos);
                     break;
             }
+
+
+//testing
+// GD.Print($"Enemies remaining: {GetTree().GetNodesInGroup("Enemies").Count}");
+
         }
 
         private void AimAtMouse()
@@ -126,7 +131,7 @@ namespace CC.Player
 
         private void OnHealthChanged()
         {
-            GD.Print($"Player Health: {playerResource.CurrentHealth}");
+            // GD.Print($"Player Health: {playerResource.CurrentHealth}");
         }
 
         private void OnDie()

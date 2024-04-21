@@ -106,7 +106,7 @@ namespace Components.Weapons
         {
             if (weaponOwner.Name == "Player")
             {
-                GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
+                // GD.Print("Magazine Ammo: " + weaponResource.ammoMagCurrent + "Total Ammo: " + weaponResource.ammoTotalCurrent);
             }
         }
     }

@@ -22,6 +22,8 @@ namespace Components.Characters
         [ExportGroup("Firing")]
         [Export] private Node2D target;
 
+        [Signal] public delegate void DoneSpawningEventHandler();
+
         private int characterCount = 0;
         private Timer spawnTimer = new Timer();
 
@@ -51,7 +53,10 @@ namespace Components.Characters
             AddChild(spawnTimer);
             spawnTimer.Timeout += OnSpawnTimerTimeout;
 
-            OnSpawnTimerTimeout();
+            AddToGroup("SpawnPoints");
+
+            // Deferred to allow LevelController the time to listen for the DoneSpawning signal if only one spawn.
+            CallDeferred("OnSpawnTimerTimeout");
         }
 
         private void SpawnCharacter()
@@ -77,7 +82,14 @@ namespace Components.Characters
             {
                 SpawnCharacter();
                 characterCount++;
-                spawnTimer.Start(timeBetweenSpawns);
+                if (characterCount < charactersToSpawn)
+                {
+                    spawnTimer.Start(timeBetweenSpawns);
+                }
+                else
+                {
+                    EmitSignal(SignalName.DoneSpawning);
+                }
             }
         }
     }

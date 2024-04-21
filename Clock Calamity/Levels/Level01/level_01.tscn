@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cuo36k2m74lot"]
+[gd_scene load_steps=32 format=3 uid="uid://cuo36k2m74lot"]
 
 [ext_resource type="Script" path="res://Levels/LevelController.cs" id="1_oc467"]
 [ext_resource type="Texture2D" uid="uid://dffchnrr1ocdh" path="res://Tilesets/tilesheet_complete.png" id="2_mbytu"]
@@ -23,7 +23,11 @@
 [ext_resource type="PackedScene" uid="uid://dmoiigir6ohl1" path="res://UI/ui_health.tscn" id="18_wxyks"]
 [ext_resource type="Texture2D" uid="uid://m7ecjojs1oru" path="res://Sprites/UI/platformPack_item017.png" id="19_a2jp1"]
 [ext_resource type="Texture2D" uid="uid://bt5v4ohc23ogb" path="res://Sprites/UI/platformPack_item005.png" id="20_olth3"]
-[ext_resource type="Material" uid="uid://bo0gi6kxmhhfd" path="res://Effects/flash_material.tres" id="24_6nlmp"]
+[ext_resource type="Texture2D" uid="uid://c2mjiaxt51bh5" path="res://Sprites/UI/keyboard_a.png" id="24_8tdb6"]
+[ext_resource type="Texture2D" uid="uid://ttlbxprn8o4k" path="res://Sprites/UI/keyboard_d.png" id="25_d38sb"]
+[ext_resource type="LabelSettings" uid="uid://cxqi105tttrso" path="res://UI/LabelSettingsInstructions.tres" id="25_f7ki1"]
+[ext_resource type="Texture2D" uid="uid://dvxgab5rve6sk" path="res://Sprites/UI/mouse_left_outline.png" id="26_h5mds"]
+[ext_resource type="Texture2D" uid="uid://cwd1vmbgtuqku" path="res://Sprites/UI/keyboard_space.png" id="27_0guux"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wutwn"]
 texture = ExtResource("2_mbytu")
@@ -1625,7 +1629,7 @@ custom_data_layer_0/name = "Occupied"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_wutwn")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rug8c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vpgfx"]
 shader = ExtResource("17_wnv06")
 
 [node name="Level01" type="Node2D"]
@@ -1718,37 +1722,91 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1280.0
-offset_top = 768.0
-offset_right = 1280.0
-offset_bottom = 768.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="UI_Ammo" parent="Control" node_paths=PackedStringArray("playerController") instance=ExtResource("15_ut7vl")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-playerController = NodePath("../../Player")
-ammoTexture = ExtResource("16_b6rb4")
-shaderAmmoFull = SubResource("ShaderMaterial_rug8c")
-
 [node name="UI_Health" parent="Control" node_paths=PackedStringArray("playerController") instance=ExtResource("18_wxyks")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -1279.0
-offset_top = -768.0
-offset_right = -1279.0
-offset_bottom = -768.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 playerController = NodePath("../../Player")
 healthTextureFull = ExtResource("19_a2jp1")
 healthTextureEmpty = ExtResource("20_olth3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = ExtResource("24_6nlmp")
+[node name="UI_Ammo" parent="Control" node_paths=PackedStringArray("playerController") instance=ExtResource("15_ut7vl")]
+layout_mode = 1
+offset_left = 1280.0
+offset_top = 768.0
+offset_right = 1280.0
+offset_bottom = 768.0
+playerController = NodePath("../../Player")
+ammoTexture = ExtResource("16_b6rb4")
+shaderAmmoFull = SubResource("ShaderMaterial_vpgfx")
+
+[node name="Instructions" type="Control" parent="Control"]
+anchors_preset = 0
+offset_top = 768.0
+offset_bottom = 768.0
+scale = Vector2(0.5, 0.5)
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Instructions"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 684.0
+grow_vertical = 0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Instructions/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("24_8tdb6")
+
+[node name="Label3" type="Label" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "/"
+label_settings = ExtResource("25_f7ki1")
+
+[node name="TextureRect4" type="TextureRect" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("25_d38sb")
+
+[node name="Label4" type="Label" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "PEAK"
+label_settings = ExtResource("25_f7ki1")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("26_h5mds")
+
+[node name="Label" type="Label" parent="Control/Instructions/MarginContainer/HBoxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+text = "SHOOT"
+label_settings = ExtResource("25_f7ki1")
+
+[node name="TextureRect" type="TextureRect" parent="Control/Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("27_0guux")
+
+[node name="Label2" type="Label" parent="Control/Instructions/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "RELOAD"
+label_settings = ExtResource("25_f7ki1")

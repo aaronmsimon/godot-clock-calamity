@@ -2,6 +2,8 @@ using Godot;
 using Godot.Collections;
 using Components.Pathfinding;
 using Components.Game;
+using System.Runtime.CompilerServices;
+using Components.Characters;
 
 namespace CC.Level
 {
@@ -21,6 +23,7 @@ namespace CC.Level
         private Label scoreLabel;
 
         private int playerHideIndex = 0;
+        private int spawnPointsCompleted = 0;
 
         public override void _Ready()
         {
@@ -37,14 +40,23 @@ namespace CC.Level
             }
 
             scoreStatComponent.gamestat.StatChanged += OnScoreChanged;
+            foreach (Spawn2DComponent spawnPoint in GetTree().GetNodesInGroup("SpawnPoints"))
+            {
+                spawnPoint.DoneSpawning += OnSpawnPointCompleted;
+            }
 
-            player.TreeExiting += async () => {
-                await ToSignal(GetTree().CreateTimer(deathToGameOverTime), Timer.SignalName.Timeout);
-                GetTree().ChangeSceneToFile(gameOverScene);
-            };
+            player.TreeExiting += GameOver;
 
             ResetGrid();
             OnScoreChanged();
+        }
+
+        public override void _Process(double delta)
+        {
+            if (LevelComplete())
+            {
+                GameOver();
+            }
         }
 
         private void ResetGrid()
@@ -62,6 +74,30 @@ namespace CC.Level
         private void OnScoreChanged()
         {
             scoreLabel.Text = $"Score: {scoreStatComponent.gamestat.StatValue:n0}";
+        }
+
+        private async void GameOver()
+        {
+            await ToSignal(GetTree().CreateTimer(deathToGameOverTime), Timer.SignalName.Timeout);
+            GetTree().ChangeSceneToFile(gameOverScene);
+        }
+
+        private void OnSpawnPointCompleted()
+        {
+            spawnPointsCompleted++;
+        }
+
+        private bool LevelComplete()
+        {
+            int spawnPoints = GetTree().GetNodesInGroup("SpawnPoints").Count;
+            int enemies = GetTree().GetNodesInGroup("Enemies").Count;
+
+            if (spawnPointsCompleted >= spawnPoints && enemies == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
