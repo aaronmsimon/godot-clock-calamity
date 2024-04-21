@@ -73,3 +73,4 @@ shootSFX = ExtResource("9_1n17r")
 script = ExtResource("11_8r5on")
 flashMaterial = ExtResource("12_us3ag")
 sprite = NodePath("../Anchor/AnimatedSprite2D")
+flashDuration = 0.1

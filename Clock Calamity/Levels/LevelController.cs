@@ -7,10 +7,15 @@ namespace CC.Level
 {
     public partial class LevelController : Node2D
     {
+        [ExportCategory("Level Controller")]
         [Export] private GridResource occupiedResource;
+        
+        [ExportGroup("Player Death")]
+        [Export] private double deathToGameOverTime;
+        [Export(PropertyHint.File, "*.tscn")] private string gameOverScene;
 
         private Array<Node> playerHides;
-        // private PlayerController player;
+        private Node2D player;
         private AStarGrid2DComponent astarGrid2DComponent;
         private GameStatComponent scoreStatComponent;
         private Label scoreLabel;
@@ -20,7 +25,7 @@ namespace CC.Level
         public override void _Ready()
         {
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
-            // player = GetNode<PlayerController>("Player");
+            player = GetNode<Node2D>("Player");
             astarGrid2DComponent = GetNode<AStarGrid2DComponent>("AStarGrid2DComponent");
             scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
             scoreLabel = GetNode<Label>("ScoreLabel");
@@ -32,6 +37,11 @@ namespace CC.Level
             }
 
             scoreStatComponent.gamestat.StatChanged += OnScoreChanged;
+
+            player.TreeExiting += async () => {
+                await ToSignal(GetTree().CreateTimer(deathToGameOverTime), Timer.SignalName.Timeout);
+                GetTree().ChangeSceneToFile(gameOverScene);
+            };
 
             ResetGrid();
             OnScoreChanged();

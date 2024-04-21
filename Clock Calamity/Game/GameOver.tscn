@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://dy0eklq2bkwyo"]
+
+[ext_resource type="Script" path="res://Game/GameOver.cs" id="1_ufbkp"]
+[ext_resource type="Resource" uid="uid://c6syc0a0dotrr" path="res://Game/Score.tres" id="2_0f126"]
+[ext_resource type="Resource" uid="uid://duphs8wr4dssq" path="res://Game/ShotsFired.tres" id="3_uym0t"]
+[ext_resource type="Resource" uid="uid://clxnu4a1k5urn" path="res://Game/ShotsHit.tres" id="4_ysk0n"]
+[ext_resource type="Resource" uid="uid://ch1y5fewdifly" path="res://Game/EnemiesKilled.tres" id="5_3e7kg"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ufbkp")
+scoreResource = ExtResource("2_0f126")
+shotsFiredResource = ExtResource("3_uym0t")
+shotsHitResource = ExtResource("4_ysk0n")
+enemiesKilledResource = ExtResource("5_3e7kg")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Score
+"
+
+[node name="ScoreValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ShotsFiredLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Shots Fired
+"
+
+[node name="ShotsFiredValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="ShotsHitLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Shots Hit
+"
+
+[node name="ShotsHitValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="AccuracyLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Accuracy"
+
+[node name="AccuracyValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 2
+
+[node name="EnemiesKilledLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Enemies Killed"
+
+[node name="EnemiesKilledValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
