@@ -40,61 +40,77 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ScoreLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Score
 "
 
-[node name="ScoreValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ScoreValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 horizontal_alignment = 2
 
-[node name="ShotsFiredLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ShotsFiredLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Shots Fired
 "
 
-[node name="ShotsFiredValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ShotsFiredValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0
 "
 horizontal_alignment = 2
 
-[node name="ShotsHitLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ShotsHitLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Shots Hit
 "
 
-[node name="ShotsHitValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="ShotsHitValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0
 "
 horizontal_alignment = 2
 
-[node name="AccuracyLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="AccuracyLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Accuracy"
 
-[node name="AccuracyValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="AccuracyValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0%"
 horizontal_alignment = 2
 
-[node name="EnemiesKilledLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="EnemiesKilledLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Enemies Killed"
 
-[node name="EnemiesKilledValueLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="EnemiesKilledValueLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 horizontal_alignment = 2
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PRESS SPACE TO TRY AGAIN"
