@@ -27,6 +27,11 @@ namespace UI
             OnHealthChanged();
         }
 
+        public override void _ExitTree()
+        {
+            playerResource.HealthChanged -= OnHealthChanged;
+        }
+
         private void OnHealthChanged()
         {
             foreach (Node node in healthContainer.GetChildren())

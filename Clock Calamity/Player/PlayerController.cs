@@ -57,9 +57,6 @@ namespace CC.Player
             weaponComponent.ReloadStarted += OnReloadStarted;
             weaponComponent.ReloadFinished += OnReloadFinished;
 
-            playerResource.HealthChanged += OnHealthChanged;
-            playerResource.Die += OnDie;
-
             // Setup starting variables
             playerResource.CurrentHealth = playerResource.StartingHealth;
             playerResource.IsAlive = true;
@@ -83,11 +80,6 @@ namespace CC.Player
                     fixedMovement2DComponent.MoveActorToMarker(hidePos);
                     break;
             }
-
-
-//testing
-// GD.Print($"Enemies remaining: {GetTree().GetNodesInGroup("Enemies").Count}");
-
         }
 
         private void AimAtMouse()
@@ -127,18 +119,6 @@ namespace CC.Player
         private void OnReloadFinished()
         {
             playerSprite.Play("gun");
-        }
-
-        private void OnHealthChanged()
-        {
-            // GD.Print($"Player Health: {playerResource.CurrentHealth}");
-        }
-
-        private void OnDie()
-        {
-            GD.Print("Player died");
-            GD.Print($"Shots: { shotsHit.StatValue } / { shotsFired.StatValue } ({ shotsHit.StatValue / shotsFired.StatValue * 100 } accuracy). { enemiesKilled.StatValue } enemies killed. Score: { score.StatValue }");
-            QueueFree();
         }
     }
 }

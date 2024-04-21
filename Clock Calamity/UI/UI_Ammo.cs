@@ -28,6 +28,11 @@ namespace UI
             OnAmmoChanged();
         }
 
+        public override void _ExitTree()
+        {
+            playerController.weaponComponent.AmmoChanged -= OnAmmoChanged;
+        }
+
         private void OnAmmoChanged()
         {
             foreach (Node node in ammoContainer.GetChildren())

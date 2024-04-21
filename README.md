@@ -154,3 +154,4 @@ UI_Ammo 📜
 12. Need game over screen with scores and option to try again
 13. need title screen and have it take you to level 1 (for now)
 14. try again is hard-coded
+15. need to handle player death vs next level vs game over vs queue free vs dying while having killed last enemy

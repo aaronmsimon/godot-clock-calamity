@@ -4,6 +4,7 @@ using Components.Pathfinding;
 using Components.Game;
 using System.Runtime.CompilerServices;
 using Components.Characters;
+using CC.Player;
 
 namespace CC.Level
 {
@@ -17,10 +18,11 @@ namespace CC.Level
         [Export(PropertyHint.File, "*.tscn")] private string gameOverScene;
 
         private Array<Node> playerHides;
-        private Node2D player;
+        private PlayerController player;
         private AStarGrid2DComponent astarGrid2DComponent;
         private GameStatComponent scoreStatComponent;
         private Label scoreLabel;
+        private PlayerResource playerResource;
 
         private int playerHideIndex = 0;
         private int spawnPointsCompleted = 0;
@@ -28,7 +30,7 @@ namespace CC.Level
         public override void _Ready()
         {
             playerHides = GetNode<Node>("PlayerHides").GetChildren();
-            player = GetNode<Node2D>("Player");
+            player = GetNode<PlayerController>("Player");
             astarGrid2DComponent = GetNode<AStarGrid2DComponent>("AStarGrid2DComponent");
             scoreStatComponent = GetNode<GameStatComponent>("ScoreStatComponent");
             scoreLabel = GetNode<Label>("ScoreLabel");
@@ -44,8 +46,8 @@ namespace CC.Level
             {
                 spawnPoint.DoneSpawning += OnSpawnPointCompleted;
             }
-
-            player.TreeExiting += GameOver;
+            playerResource = player.playerResource;
+            playerResource.Die += GameOver;
 
             ResetGrid();
             OnScoreChanged();
@@ -57,6 +59,16 @@ namespace CC.Level
             {
                 GameOver();
             }
+        }
+
+        public override void _ExitTree()
+        {
+            scoreStatComponent.gamestat.StatChanged -= OnScoreChanged;
+            foreach (Spawn2DComponent spawnPoint in GetTree().GetNodesInGroup("SpawnPoints"))
+            {
+                spawnPoint.DoneSpawning -= OnSpawnPointCompleted;
+            }
+            // player.TreeExiting -= GameOver;
         }
 
         private void ResetGrid()
@@ -78,6 +90,8 @@ namespace CC.Level
 
         private async void GameOver()
         {
+            playerResource.Die -= GameOver;
+            if (!player.playerResource.IsAlive) player.QueueFree();
             await ToSignal(GetTree().CreateTimer(deathToGameOverTime), Timer.SignalName.Timeout);
             GetTree().ChangeSceneToFile(gameOverScene);
         }
